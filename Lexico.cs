@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace Evalua
+namespace Semantica
 {
     public class Lexico : Token
     {
@@ -60,11 +60,11 @@ namespace Evalua
         public Lexico()
         {
             linea = 1;
-            //string path = "/workspace/Evalua/prueba.cpp";
-            string path = "C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Evalua\\prueba.cpp";
+            string path = "/workspace/Semantica/prueba.cpp";
+            //string path = "C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Evalua\\prueba.cpp";
             bool existencia = File.Exists(path);
-            //log = new StreamWriter("/workspace/Evalua/prueba.Log");
-            log = new StreamWriter("C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Evalua\\prueba.Log");
+            log = new StreamWriter("/workspace/Semantica/prueba.Log");
+            //log = new StreamWriter("C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Evalua\\prueba.Log");
             log.AutoFlush = true;
             //log.WriteLine("Primer constructor");
             log.WriteLine("Archivo: prueba.cpp");

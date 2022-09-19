@@ -1,4 +1,4 @@
-namespace Evalua
+namespace Semantica
 {
     public class Token
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Evalua
+namespace Semantica
 {
     public class Program
     {
@@ -29,10 +29,10 @@ namespace Evalua
                 //}
                 a.cerrar();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                
-                Lenguaje a = new Lenguaje();
+                Console.WriteLine(e.Message);
+                /*Lenguaje a = new Lenguaje();
 
                 a.Programa();
 
@@ -50,7 +50,7 @@ namespace Evalua
                 //{
                   //  a.NextToken();
                 //}
-                a.cerrar();
+                //a.cerrar();
             }
         }
     }

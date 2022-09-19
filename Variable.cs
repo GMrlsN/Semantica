@@ -1,5 +1,5 @@
 //Clase que almacena una variable
-namespace Evalua
+namespace Semantica
 {
     public class Variable
     {

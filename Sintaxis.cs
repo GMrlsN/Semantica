@@ -1,6 +1,6 @@
 using System;
 
-namespace Evalua
+namespace Semantica
 {
     public class Sintaxis : Lexico
     {

@@ -1,11 +1,11 @@
 using System;
 using System.IO;
 
-namespace Evalua
+namespace Semantica
 {
     public class Error : Exception
     {
-        public Error(string mensaje, StreamWriter log)
+        public Error(string mensaje, StreamWriter log) : base(mensaje)
         {
             Console.WriteLine(mensaje);
             log.WriteLine(mensaje);

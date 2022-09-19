@@ -7,7 +7,7 @@ using System.Collections.Generic;
 //Requerimiento 4.- Obtener el valor de la variable cuando se requiera y programar el metodo 
 //                  getValor
 //Requerimiento 5.- Modificar el valor de la variable en el scanf
-namespace Evalua
+namespace Semantica
 {
     public class Lenguaje : Sintaxis
     {
