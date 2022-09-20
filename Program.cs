@@ -7,14 +7,13 @@ namespace Semantica
     {
         static void Main(string[] args)
         {
+            
             try
             {
                 Lenguaje a = new Lenguaje();
 
                 a.Programa();
 
-
-                
                 /*a.match("#");
                 a.match("include");
                 a.match("<");
