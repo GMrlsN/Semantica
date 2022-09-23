@@ -1,21 +1,12 @@
 Archivo: prueba.cpp
-9/22/2022 2:43:20 PM
-
-x = 1 1 + = 2
-
-pi = 3.141592653589793 = 3.1415927
-
-d = 4 = 4
-
-area = pi radio radio * * = 113.097336
-area 
-d = 10 = 10
-d 20 
+9/23/2022 3:04:23 PM
+3 5 + 10 8 6 
 Variables: 
-area Float 113.097336
-radio Float 6
-pi Float 3.1415927
+area Float 0
+radio Float 0
+pi Float 0
 resultado Float 0
 a Int 0
-d Int 11
-x Char 2
+d Int 0
+x Float 0
+y Char 0

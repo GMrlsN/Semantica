@@ -1,4 +1,5 @@
 # A .NET Core CLI template on Gitpod
+Gabriel Morales Nuñez
 
 This is a [.NET Core CLI](https://docs.microsoft.com/en-us/dotnet/core/introduction) template configured for ephemeral development environments on [Gitpod](https://www.gitpod.io/).
 

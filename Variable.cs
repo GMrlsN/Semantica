@@ -1,3 +1,4 @@
+//Gabriel Morales Nuñez
 //Clase que almacena una variable
 namespace Semantica
 {
