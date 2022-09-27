@@ -235,9 +235,17 @@ namespace Semantica
 
             return false;
         }
+        private float convert(float valor, string tipoDato){
+            //private float convert(float valor, string tipoDato)
+            //deberan usar el residuo de la division %255, por 65535
+            float convertido = valor%255 * 65535;
+            return convertido;
+        }
         //Asignacion -> identificador = cadena | Expresion;
         private void Asignacion(bool evaluacion)
         {
+            float convertido = 5%255 * 65535;
+            Console.WriteLine(convertido);
             if(existeVariable(getContenido())){
                 log.WriteLine();
                 log.Write(getContenido()+" = ");
