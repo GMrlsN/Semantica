@@ -8,9 +8,9 @@ float x;
 char y;
 // Este programa calcula el volumen de un cilindro.
 void main(){
-    if(3+5 != 10){
-        if(8 < 6){
-            printf("Hola\n");
-        }
+    y = (char)(256);
+    if(5+5 == 10){
+        printf("Hola\n");
     }
+    printf("Hola2n");
 }

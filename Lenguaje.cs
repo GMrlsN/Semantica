@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 //Requerimiento 1.- Actualizar dominante para variables en la expresion
-//                  Ejemplo: float x; chfar y; y = x; eso deberia ser un error
+//                  Ejemplo: float x; char y; y = x; eso deberia ser un error
 //Requerimiento 2.- Actualizar el dominante para el casteo y el valor de la subexpresion
 //Requerimiento 3.- Programar un metodo de conversion de un valor a un tipo de dato
 //                  private float convert(float valor, string tipoDato)
@@ -244,12 +244,14 @@ namespace Semantica
                 string nombre = getContenido();
                 match(Tipos.Identificador);
                 match(Tipos.Asignacion);
-                dominante = Variable.TipoDato.Char;
                 Expresion();
                 match(";");
                 float resultado = stack.Pop();
                 log.Write("= "+ resultado);
                 log.WriteLine();
+                byte cha = (byte)255;
+                cha++;
+                Console.WriteLine(resultado + " = " + dominante + " " + cha);
                 if(dominante < evaluaNumero(resultado))
                 {
                     dominante = evaluaNumero(resultado);
@@ -268,7 +270,7 @@ namespace Semantica
             }
             else
             {
-                throw new Error("Error de sintaxis, variable <" +getContenido()+"> no existe en linea: "+linea, log);
+                throw new Error("Error de sintaxis, variable <" + getContenido()+"> no existe en linea: "+linea, log);
             }
         }
 
@@ -612,8 +614,8 @@ namespace Semantica
                 if(existeVariable(getContenido()))
                 {
                     log.Write(getContenido() + " " );
-                    //Requerimiento -> 1 
-                    //getTipo(getContenido());
+                    //Requerimiento 1.- 
+                    dominante = getTipo(getContenido());
                     stack.Push(getValor(getContenido()));
                     match(Tipos.Identificador);
                 }
@@ -661,7 +663,7 @@ namespace Semantica
                     float valor = stack.Pop();
                     if( valor > 255)
                     {
-                        stack.Push(valor-255);
+                        stack.Push(valor-256);
                     }
                     dominante = casteo;
 
