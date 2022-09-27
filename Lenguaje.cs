@@ -7,6 +7,9 @@ using System.Collections.Generic;
 //Requerimiento 3.- Programar un metodo de conversion de un valor a un tipo de dato
 //                  private float convert(float valor, string tipoDato)
 //                  deberan usar el residuo de la division %255, por 65535
+//Requerimiento 4.- Evaluar nuevamente la condicion del if, while, for, do while con respecto
+//                  al parametro que recibe 
+//Requerimiento 5.- Levantar una excepcion cuando la captura no sea un numero
 namespace Semantica
 {
     public class Lenguaje : Sintaxis
@@ -139,12 +142,22 @@ namespace Semantica
                     throw new Error("Error de sintaxis, variable duplicada <" +getContenido()+"> en linea: "+linea, log);
                 }
             }
+            
             match(Tipos.Identificador);
             if (getContenido() == ",")
             {
                 match(",");
                 Lista_identificadores(tipo);
             }
+        }
+//Main      -> void main() Bloque de instrucciones
+        private void Main()
+        {
+            match("void");
+            match("main");
+            match("(");
+            match(")");
+            BloqueInstrucciones(true);
         }
         //Bloque de instrucciones -> {listaIntrucciones?}
         private void BloqueInstrucciones(bool evaluacion)
@@ -287,7 +300,8 @@ namespace Semantica
         {
             match("while");
             match("(");
-            Condicion();
+            //Requerimiento 4
+            bool validarWhile = Condicion();
             match(")");
             if (getContenido() == "{") 
             {
@@ -313,7 +327,8 @@ namespace Semantica
             } 
             match("while");
             match("(");
-            Condicion();
+            //Requerimiento 4
+            bool validarDo = Condicion();
             match(")");
             match(";");
         }
@@ -323,7 +338,8 @@ namespace Semantica
             match("for");
             match("(");
             Asignacion(evaluacion);
-            Condicion();
+            //Requerimiento 4
+            bool validarFor = Condicion();
             match(";");
             Incremento(evaluacion);
             match(")");
@@ -383,10 +399,12 @@ namespace Semantica
                 match(":");
                 if (getContenido() == "{")
                 {
+                    if(evaluacion)
                     BloqueInstrucciones(evaluacion);  
                 }
                 else
                 {
+                    If(evaluacion);
                     Instruccion(evaluacion);
                 }
             }
@@ -435,7 +453,6 @@ namespace Semantica
                 default:
                     return e1 != e2;
             }
-            return false;
         }
 
         //If -> if(Condicion) bloque de instrucciones (else bloque de instrucciones)?
@@ -443,6 +460,7 @@ namespace Semantica
         {
             match("if");
             match("(");
+            //Requerimiento 4
             bool validarIf = Condicion();
             match(")");
             if (getContenido() == "{")
@@ -524,11 +542,16 @@ namespace Semantica
             match(",");
             match("&");
             if(existeVariable(getContenido())){
-                if(evaluacion){
-                string val = "" + Console.ReadLine();
-                modificaValor(getContenido(),float.Parse(val));
-                }
+                string nombreVariable = getContenido();
                 match(Tipos.Identificador);
+                if(evaluacion){
+                //Requerimiento 5    
+                string val = "" + Console.ReadLine();
+                float num;
+                bool esNum = float.TryParse(val, out num);
+                float valorFloat = float.Parse(val);
+                modificaValor(nombreVariable,valorFloat);
+                }
                 match(")");
                 match(";");
             }
@@ -538,15 +561,7 @@ namespace Semantica
             }
         }
 
-        //Main      -> void main() Bloque de instrucciones
-        private void Main()
-        {
-            match("void");
-            match("main");
-            match("(");
-            match(")");
-            BloqueInstrucciones(true);
-        }
+        
 
         //Expresion -> Termino MasTermino
         private void Expresion()
