@@ -1,5 +1,9 @@
 Archivo: prueba.cpp
-9/27/2022 2:53:25 PM
+9/28/2022 2:28:29 PM
+
+x = 9 = 9
+
+y = 9 1 + = 10
 
 y = 256 = 0
 5 5 + 10 
@@ -10,5 +14,5 @@ pi Float 0
 resultado Float 0
 a Int 0
 d Int 0
-x Float 0
+x Float 9
 y Char 0

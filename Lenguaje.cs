@@ -8,8 +8,10 @@ using System.Collections.Generic;
 //                  private float convert(float valor, string tipoDato)
 //                  deberan usar el residuo de la division %255, por 65535
 //Requerimiento 4.- Evaluar nuevamente la condicion del if, while, for, do while con respecto
-//                  al parametro que recibe 
+//                  al parametro que recibe, arreglar los else
 //Requerimiento 5.- Levantar una excepcion cuando la captura no sea un numero
+//Requerimiento 6.- Ejecutar el for 
+//                  
 namespace Semantica
 {
     public class Lenguaje : Sintaxis
@@ -257,8 +259,6 @@ namespace Semantica
         //Asignacion -> identificador = cadena | Expresion;
         private void Asignacion(bool evaluacion)
         {
-            float convertido = 5%255 * 65535;
-            Console.WriteLine(convertido);
             if(existeVariable(getContenido())){
                 log.WriteLine();
                 log.Write(getContenido()+" = ");
@@ -270,9 +270,7 @@ namespace Semantica
                 float resultado = stack.Pop();
                 log.Write("= "+ resultado);
                 log.WriteLine();
-                byte cha = (byte)255;
-                cha++;
-                Console.WriteLine(resultado + " = " + dominante + " " + cha);
+                Console.WriteLine(resultado + " = " + dominante + " ");
                 if(dominante < evaluaNumero(resultado))
                 {
                     dominante = evaluaNumero(resultado);
@@ -339,18 +337,26 @@ namespace Semantica
             match("(");
             Asignacion(evaluacion);
             //Requerimiento 4
+            //Requerimiento 6:
+            //a) necesito guardar la posicion del archivo de texto en una variable int
             bool validarFor = Condicion();
-            match(";");
-            Incremento(evaluacion);
-            match(")");
-            if (getContenido() == "{")
-            {
-                BloqueInstrucciones(evaluacion);  
-            }
-            else
-            {
-                Instruccion(evaluacion);
-            }
+            //b) metemos un ciclo while
+            //while()
+            //  {
+                match(";");
+                Incremento(evaluacion);
+                match(")");
+                if (getContenido() == "{")
+                {
+                    BloqueInstrucciones(evaluacion);  
+                }
+                else
+                {
+                    Instruccion(evaluacion);
+                }
+                //c) regresar a la posicion de lectura del archivo
+                //d) sacar otro token
+            //  }
         }
 
         //Incremento -> Identificador ++ | --
