@@ -5,14 +5,20 @@
 float area, radio, pi, resultado;
 int a, d;
 float x;
-char y;
+char y;int i ;
 // Este programa calcula el volumen de un cilindro.
 void main(){
-    x = 9;
-    y = 9 + 1;
-    y = (char)(256);
-    if(5+5 == 10){
-        printf("Hola\n");
+   
+    a = y;
+    if(2 != 2){
+        
+        printf("true\n");
+        if(2 == 3){
+            printf("false\n");
+        }
+        printf("true 2 \n");
     }
-    printf("Hola2n");
+    else
+        printf("else");
+    //scanf("area",&area);
 }

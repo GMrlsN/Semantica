@@ -2,14 +2,14 @@
 using System;
 using System.Collections.Generic;
 //Requerimiento 1.- Actualizar dominante para variables en la expresion
-//                  Ejemplo: float x; char y; y = x; eso deberia ser un error
-//Requerimiento 2.- Actualizar el dominante para el casteo y el valor de la subexpresion
-//Requerimiento 3.- Programar un metodo de conversion de un valor a un tipo de dato
+//                  Ejemplo: float x; char y; y = x; eso deberia ser un error             --Ya jala
+//Requerimiento 2.- Actualizar el dominante para el casteo y el valor de la subexpresion  --Ya jala
+//Requerimiento 3.- Programar un metodo de conversion de un valor a un tipo de dato   --Ya jala
 //                  private float convert(float valor, string tipoDato)
 //                  deberan usar el residuo de la division %255, por 65535
 //Requerimiento 4.- Evaluar nuevamente la condicion del if, while, for, do while con respecto
 //                  al parametro que recibe, arreglar los else
-//Requerimiento 5.- Levantar una excepcion cuando la captura no sea un numero
+//Requerimiento 5.- Levantar una excepcion cuando la captura no sea un numerico       --Ya  jala
 //Requerimiento 6.- Ejecutar el for 
 //                  
 namespace Semantica
@@ -251,10 +251,16 @@ namespace Semantica
             return false;
         }
         private float convert(float valor, string tipoDato){
-            //private float convert(float valor, string tipoDato)
-            //deberan usar el residuo de la division %255, por 65535
-            float convertido = valor%255 * 65535;
-            return convertido;
+            switch(tipoDato){
+                        case "char":
+                            return valor%256;
+                        case "int": 
+                            return valor%65535; 
+                        case "float": 
+                            return valor;
+
+                    }
+            return valor;
         }
         //Asignacion -> identificador = cadena | Expresion;
         private void Asignacion(bool evaluacion)
@@ -270,7 +276,7 @@ namespace Semantica
                 float resultado = stack.Pop();
                 log.Write("= "+ resultado);
                 log.WriteLine();
-                Console.WriteLine(resultado + " = " + dominante + " ");
+                //Console.WriteLine(resultado + " = " + dominante + " ");
                 if(dominante < evaluaNumero(resultado))
                 {
                     dominante = evaluaNumero(resultado);
@@ -468,6 +474,10 @@ namespace Semantica
             match("(");
             //Requerimiento 4
             bool validarIf = Condicion();
+            if(!evaluacion)
+            {
+                validarIf = false;
+            }
             match(")");
             if (getContenido() == "{")
             {
@@ -482,11 +492,11 @@ namespace Semantica
                 match("else");
                 if (getContenido() == "{")
                 {
-                    BloqueInstrucciones(validarIf);
+                    BloqueInstrucciones(!validarIf);
                 }
                 else
                 {
-                    Instruccion(evaluacion);
+                    Instruccion(!validarIf);
                 }
             }
         }
@@ -528,7 +538,7 @@ namespace Semantica
                 match(Tipos.Cadena);
             }
             else{
-                stack.Pop();
+                //stack.Pop();
                 Expresion();
                 if(evaluacion)
                 {
@@ -553,6 +563,11 @@ namespace Semantica
                 if(evaluacion){
                 //Requerimiento 5    
                 string val = "" + Console.ReadLine();
+                for(int i = 0; i < val.Length; i++){
+                    if(!Char.IsDigit(val[i])){
+                      throw new Error("Error de sintaxis, se introdujo un caracter no numerico al scanf en linea: "+linea, log);  
+                    }
+                }
                 float num;
                 bool esNum = float.TryParse(val, out num);
                 float valorFloat = float.Parse(val);
@@ -655,13 +670,15 @@ namespace Semantica
             }
             else
             {
+                string tipo = "";
                 bool huboCasteo = false;
                 Variable.TipoDato casteo = Variable.TipoDato.Char;
                 match("(");
                 if(getClasificacion() == Tipos.TipoDato)
                 {
                     huboCasteo = true;
-                    switch(getContenido()){
+                    tipo = getContenido();
+                    switch(tipo){
                         case "char":
                             casteo = Variable.TipoDato.Char;
                             break;
@@ -688,12 +705,11 @@ namespace Semantica
                     //Requerimiento 3.- 
                     //Ejemplo: si el casteo es (char) y el pop regresa un 256
                     //         el valor equivalente en casteo es 0
-
+                    //Console.WriteLine("Convertir a un " + tipo);
                     float valor = stack.Pop();
-                    if( valor > 255)
-                    {
-                        stack.Push(valor-256);
-                    }
+                    //Console.WriteLine("Valor: " + valor);
+                    //Console.WriteLine("convert " + convert(valor,tipo));
+                    stack.Push(convert(valor,tipo));
                     dominante = casteo;
 
                 }
