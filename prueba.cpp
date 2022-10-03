@@ -8,17 +8,10 @@ float x;
 char y;int i ;
 // Este programa calcula el volumen de un cilindro.
 void main(){
-   
-    a = y;
-    if(2 != 2){
-        
-        printf("true\n");
-        if(2 == 3){
-            printf("false\n");
-        }
-        printf("true 2 \n");
-    }
-    else
-        printf("else");
-    //scanf("area",&area);
+for(i = 0; i < 10; i++){
+        printf(i);
+        printf(" hola\n");
+
+    }i=8;
+    scanf("area",&area);
 }

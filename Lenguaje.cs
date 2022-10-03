@@ -1,16 +1,17 @@
 //Gabriel Morales Nuñez
 using System;
+using System.IO;
 using System.Collections.Generic;
-//Requerimiento 1.- Actualizar dominante para variables en la expresion
-//                  Ejemplo: float x; char y; y = x; eso deberia ser un error             --Ya jala
+//Requerimiento 1.- Actualizar dominante para variables en la expresion                   --Ya jala
+//                  Ejemplo: float x; char y; y = x; eso deberia ser un error             
 //Requerimiento 2.- Actualizar el dominante para el casteo y el valor de la subexpresion  --Ya jala
-//Requerimiento 3.- Programar un metodo de conversion de un valor a un tipo de dato   --Ya jala
+//Requerimiento 3.- Programar un metodo de conversion de un valor a un tipo de dato       --Ya jala
 //                  private float convert(float valor, string tipoDato)
 //                  deberan usar el residuo de la division %255, por 65535
-//Requerimiento 4.- Evaluar nuevamente la condicion del if, while, for, do while con respecto
+//Requerimiento 4.- Evaluar nuevamente la condicion del if, while, for, do while con respecto    --Ya jala
 //                  al parametro que recibe, arreglar los else
 //Requerimiento 5.- Levantar una excepcion cuando la captura no sea un numerico       --Ya  jala
-//Requerimiento 6.- Ejecutar el for 
+//Requerimiento 6.- Ejecutar el for                                                   --Ya jala
 //                  
 namespace Semantica
 {
@@ -306,14 +307,18 @@ namespace Semantica
             match("(");
             //Requerimiento 4
             bool validarWhile = Condicion();
+            if(!evaluacion)
+            {
+                validarWhile = false;
+            }
             match(")");
             if (getContenido() == "{") 
             {
-                BloqueInstrucciones(evaluacion);
+                BloqueInstrucciones(validarWhile);
             }
             else
             {
-                Instruccion(evaluacion);
+                Instruccion(!validarWhile);
             }
         }
 
@@ -333,36 +338,57 @@ namespace Semantica
             match("(");
             //Requerimiento 4
             bool validarDo = Condicion();
+            if(!evaluacion)
+            {
+                validarDo = false;
+            }
             match(")");
             match(";");
         }
         //For -> for(Asignacion Condicion; Incremento) BloqueInstruccones | Intruccion 
         private void For(bool evaluacion)
         {
+            
             match("for");
             match("(");
+            bool validarFor;
             Asignacion(evaluacion);
             //Requerimiento 4
             //Requerimiento 6:
             //a) necesito guardar la posicion del archivo de texto en una variable int
-            bool validarFor = Condicion();
+            long contador = getContador(); 
+            int linea = getLinea();  
             //b) metemos un ciclo while
-            //while()
-            //  {
+            do
+            {
+                validarFor = Condicion();
                 match(";");
-                Incremento(evaluacion);
+                if(!evaluacion)
+                {
+                    validarFor = false;
+                }
+                Incremento(validarFor);
                 match(")");
                 if (getContenido() == "{")
                 {
-                    BloqueInstrucciones(evaluacion);  
+                    BloqueInstrucciones(validarFor);  
                 }
                 else
                 {
-                    Instruccion(evaluacion);
+                    Instruccion(validarFor);
                 }
                 //c) regresar a la posicion de lectura del archivo
+                if(validarFor)
+                {
+                archivo.DiscardBufferedData();
+                archivo.BaseStream.Seek(contador+0, SeekOrigin.Begin);
+                setContador(contador);
+                setLinea(linea);
                 //d) sacar otro token
-            //  }
+                NextToken();
+                }
+            }while(validarFor);
+            //Console.WriteLine("salida");
         }
 
         //Incremento -> Identificador ++ | --
@@ -705,10 +731,7 @@ namespace Semantica
                     //Requerimiento 3.- 
                     //Ejemplo: si el casteo es (char) y el pop regresa un 256
                     //         el valor equivalente en casteo es 0
-                    //Console.WriteLine("Convertir a un " + tipo);
                     float valor = stack.Pop();
-                    //Console.WriteLine("Valor: " + valor);
-                    //Console.WriteLine("convert " + convert(valor,tipo));
                     stack.Push(convert(valor,tipo));
                     dominante = casteo;
 

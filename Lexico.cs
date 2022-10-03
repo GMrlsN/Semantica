@@ -6,10 +6,11 @@ namespace Semantica
 {
     public class Lexico : Token
     {
-        StreamReader archivo;
+        protected StreamReader archivo;
         protected StreamWriter log;
         const int F = -1;
         const int E = -2;
+        long contador = 0;
         protected int linea;
         int[,] TRAND = new int[,]
         {
@@ -58,14 +59,20 @@ namespace Semantica
             
             //WS,EF,EL,L, D, .,	E, +, -, =,	:, ;, &, |,	!, >, <, *,	%, /, ", ?,La, ', #
         };
+        protected void setLinea(int lin){
+            linea = lin;
+        }
+        protected int getLinea(){
+            return linea;
+        }
         public Lexico()
         {
             linea = 1;
-            string path = "/workspace/Semantica/prueba.cpp";
-            //string path = "C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Semantica\\prueba.cpp";
+            //string path = "/workspace/Semantica/prueba.cpp";
+            string path = "C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Semantica\\prueba.cpp";
             bool existencia = File.Exists(path);
-            log = new StreamWriter("/workspace/Semantica/prueba.Log");
-            //log = new StreamWriter("C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Semantica\\prueba.Log");
+            //log = new StreamWriter("/workspace/Semantica/prueba.Log");
+            log = new StreamWriter("C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Semantica\\prueba.Log");
             log.AutoFlush = true;
             //log.WriteLine("Primer constructor");
             log.WriteLine("Archivo: prueba.cpp");
@@ -277,7 +284,6 @@ namespace Semantica
             string buffer = "";           
             char c;      
             int estado = 0;
-
             while(estado >= 0)
             {
                 c = (char)archivo.Peek(); //Funcion de transicion
@@ -286,6 +292,7 @@ namespace Semantica
                 if (estado >= 0)
                 {
                     archivo.Read();
+                    contador++;
                     if(c == '\n')
                     {
                         linea++;
@@ -349,7 +356,13 @@ namespace Semantica
                 //log.WriteLine(getContenido() + " | " + getClasificacion());
             }
         }
-
+        public long getContador(){
+            return contador;
+        }
+        public void setContador(long cont){
+            //archivo.DiscardBufferedData();
+            contador = cont;
+        }
         public bool FinArchivo()
         {
             return archivo.EndOfStream;
