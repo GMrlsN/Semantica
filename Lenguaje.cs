@@ -356,13 +356,15 @@ namespace Semantica
             //Requerimiento 6:
             //a) necesito guardar la posicion del archivo de texto en una variable int
             long contador = getContador(); 
+            //Console.WriteLine("Se guarda: " + contador);
             int linea = getLinea();  
             //Console.WriteLine("peek " + (char)archivo.Peek());
             int tam = getContenido().Length - 1; 
             //b) metemos un ciclo while
             do
             {
-                
+                //Console.WriteLine("contenido " + getContenido());
+                //Console.WriteLine("contador " + getContador());
                 validarFor = Condicion();
                 match(";");
                 if(!evaluacion)
@@ -384,14 +386,17 @@ namespace Semantica
                 {
                 archivo.DiscardBufferedData();
                 archivo.BaseStream.Seek(contador-tam, SeekOrigin.Begin);
+                NextToken();
                 setContador(contador);
                 setLinea(linea);
                 //d) sacar otro token
                 //Console.WriteLine("peek " + (char)archivo.Peek());
-                NextToken();
-                Console.WriteLine("contenido " + getContenido());
+                
+                //Console.WriteLine("contadorF " + getContador());
+                //Console.WriteLine("contenido " + getContenido());
                 }
             }while(validarFor);
+            //Console.WriteLine("contador de Salida" + getContador());
         }
 
         //Incremento -> Identificador ++ | --

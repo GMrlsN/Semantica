@@ -5,22 +5,18 @@
 float area, radio, pi, resultado;
 int a, d;
 float x;
-char y;int id ;int k;
+char y;int ide ;int kj;
 // Este programa calcula el volumen de un cilindro.
 void main(){
-for(id = 0; id < 10; id++){
-        printf(id);
+    for(ide = 0; ide < 10; ide++)
+    {
+        printf(ide);
         printf(" hola\n");
-
-    }
-    
-    printf("Introduce area: ");
-    scanf("area",&area);
-    if(1 < 2){
-        printf("condicional");
-    }
-        for(k = 0; k < 10; k++){
-            printf(k);
-            printf("for2\n"); 
+        for(kj = 0; kj < 10; kj++)
+        {
+            printf("\t");
+            printf(kj);
+            printf(" for anidado\n"); 
         }
+    }
 }

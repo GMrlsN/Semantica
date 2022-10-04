@@ -1,7 +1,38 @@
 Archivo: prueba.cpp
-10/4/2022 3:54:49 PM
+10/4/2022 2:01:01 PM
 
-id = 0 = 0
-id 10 id id 10 id id 10 id id 10 id id 10 id id 10 id id 10 id id 10 id id 10 id id 10 id id 10 id 1 2 
-k = 0 = 0
-k 10 k Error de sintaxis, se espera un ( en linea: 22
+ide = 0 = 0
+ide 10 ide 
+kj = 0 = 0
+kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj ide 10 ide 
+kj = 0 = 0
+kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj ide 10 ide 
+kj = 0 = 0
+kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj ide 10 ide 
+kj = 0 = 0
+kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj ide 10 ide 
+kj = 0 = 0
+kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj ide 10 ide 
+kj = 0 = 0
+kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj ide 10 ide 
+kj = 0 = 0
+kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj ide 10 ide 
+kj = 0 = 0
+kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj ide 10 ide 
+kj = 0 = 0
+kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj ide 10 ide 
+kj = 0 = 0
+kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj kj 10 kj ide 10 ide 
+kj = 0 = 0
+kj 10 kj 
+Variables: 
+area Float 0
+radio Float 0
+pi Float 0
+resultado Float 0
+a Int 0
+d Int 0
+x Float 0
+y Char 0
+ide Int 10
+kj Int 10
