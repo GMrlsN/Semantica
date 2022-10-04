@@ -348,7 +348,6 @@ namespace Semantica
         //For -> for(Asignacion Condicion; Incremento) BloqueInstruccones | Intruccion 
         private void For(bool evaluacion)
         {
-            
             match("for");
             match("(");
             bool validarFor;
@@ -358,9 +357,12 @@ namespace Semantica
             //a) necesito guardar la posicion del archivo de texto en una variable int
             long contador = getContador(); 
             int linea = getLinea();  
+            //Console.WriteLine("peek " + (char)archivo.Peek());
+            int tam = getContenido().Length - 1; 
             //b) metemos un ciclo while
             do
             {
+                
                 validarFor = Condicion();
                 match(";");
                 if(!evaluacion)
@@ -381,14 +383,15 @@ namespace Semantica
                 if(validarFor)
                 {
                 archivo.DiscardBufferedData();
-                archivo.BaseStream.Seek(contador+0, SeekOrigin.Begin);
+                archivo.BaseStream.Seek(contador-tam, SeekOrigin.Begin);
                 setContador(contador);
                 setLinea(linea);
                 //d) sacar otro token
+                //Console.WriteLine("peek " + (char)archivo.Peek());
                 NextToken();
+                Console.WriteLine("contenido " + getContenido());
                 }
             }while(validarFor);
-            //Console.WriteLine("salida");
         }
 
         //Incremento -> Identificador ++ | --
