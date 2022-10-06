@@ -363,8 +363,6 @@ namespace Semantica
             //b) metemos un ciclo while
             do
             {
-                //Console.WriteLine("contenido " + getContenido());
-                //Console.WriteLine("contador " + getContador());
                 validarFor = Condicion();
                 match(";");
                 if(!evaluacion)
@@ -390,13 +388,8 @@ namespace Semantica
                 setContador(contador);
                 setLinea(linea);
                 //d) sacar otro token
-                //Console.WriteLine("peek " + (char)archivo.Peek());
-                
-                //Console.WriteLine("contadorF " + getContador());
-                //Console.WriteLine("contenido " + getContenido());
                 }
             }while(validarFor);
-            //Console.WriteLine("contador de Salida" + getContador());
         }
 
         //Incremento -> Identificador ++ | --
@@ -524,6 +517,10 @@ namespace Semantica
             if (getContenido() == "else")
             {
                 match("else");
+                if(!evaluacion)
+                {
+                    validarIf = true;
+                }
                 if (getContenido() == "{")
                 {
                     BloqueInstrucciones(!validarIf);
