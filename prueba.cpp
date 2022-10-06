@@ -12,18 +12,22 @@ void main(){
     printf("Introduce la altura de la piramide: ");
     scanf("altura", &altura);
     //Requerimiento 6.- Ejecutar el for y for anidado
-    for(i = altura; i > 0; i--)
-    {
-        for(j = 0; j < altura-i; j++){
-            if(j!=2){
-                printf("*");
+    if(altura >2)
+        for(i = altura; i > 0; i--)
+        {
+        
+            for(j = 0; j < altura-i; j++){
+                if(j!=2){
+                    printf("*");
+                }
+                else{
+                    printf("-");//Requerimiento 4.- evalua nuevamente los else
+                }
             }
-            else{
-                printf("-");//Requerimiento 4.- evalua nuevamente los else
-            }
+            printf("\n");
         }
-        printf("\n");
-    }
+    else
+        printf("\nError: la altura debe de ser mayor que 2\n");
     if(1 != 1){
         printf("Esto no se debe imprimir");
         if(2 == 2){
