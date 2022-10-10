@@ -351,6 +351,8 @@ namespace Semantica
             match("for");
             match("(");
             bool validarFor;
+            bool inc;
+            String varInc;
             Asignacion(evaluacion);
             //Requerimiento 4
             //Requerimiento 6:
@@ -369,7 +371,8 @@ namespace Semantica
                 {
                     validarFor = false;
                 }
-                Incremento(validarFor);
+                varInc = getContenido();
+                inc = Incremento(validarFor);
                 match(")");
                 if (getContenido() == "{")
                 {
@@ -378,6 +381,14 @@ namespace Semantica
                 else
                 {
                     Instruccion(validarFor);
+                }
+                if(inc)
+                {
+                    modificaValor(varInc, getValor(varInc) + 1);
+                }
+                else
+                {
+                    modificaValor(varInc, getValor(varInc) - 1);
                 }
                 //c) regresar a la posicion de lectura del archivo
                 if(validarFor)
@@ -393,7 +404,7 @@ namespace Semantica
         }
 
         //Incremento -> Identificador ++ | --
-        private void Incremento(bool evaluacion)
+        private bool Incremento(bool evaluacion)
         {
             string variable = getContenido();
             if(existeVariable(variable)){
@@ -401,18 +412,20 @@ namespace Semantica
                 if( getContenido() == "++")
                 {
                     match("++");
-                    if(evaluacion)
+                    return true;
+                    /*if(evaluacion)
                     {
                         modificaValor(variable, getValor(variable) + 1);
-                    }
+                    }*/
                 }
                 else
                 {
                     match("--");
-                   if(evaluacion)
+                    return false;
+                    /*if(evaluacion)
                     {
                         modificaValor(variable, getValor(variable) - 1);
-                    }
+                    }*/
                 }
             }
             else

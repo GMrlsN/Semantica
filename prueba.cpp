@@ -15,9 +15,8 @@ void main(){
     if(altura >2)
         for(i = altura; i > 0; i--)
         {
-        
             for(j = 0; j < altura-i; j++){
-                if(j!=2){
+                if(j!=1){
                     printf("*");
                 }
                 else{
