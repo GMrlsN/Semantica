@@ -2,17 +2,15 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
-//Requerimiento 1.- Actualizar dominante para variables en la expresion                   --Ya jala
-//                  Ejemplo: float x; char y; y = x; eso deberia ser un error             
-//Requerimiento 2.- Actualizar el dominante para el casteo y el valor de la subexpresion  --Ya jala
-//Requerimiento 3.- Programar un metodo de conversion de un valor a un tipo de dato       --Ya jala
-//                  private float convert(float valor, string tipoDato)
-//                  deberan usar el residuo de la division %255, por 65535
-//Requerimiento 4.- Evaluar nuevamente la condicion del if, while, for, do while con respecto    --Ya jala
-//                  al parametro que recibe, arreglar los else
-//Requerimiento 5.- Levantar una excepcion cuando la captura no sea un numerico       --Ya  jala
-//Requerimiento 6.- Ejecutar el for                                                   --Ya jala
-//                  
+//Requerimiento 1.- Actualizacion:
+//                  a) Agregar el residuo de la division en porfactor
+//                  b) Agregar en asignacion los incrementos de termino y de factor 
+//                     a++; a--; a+=1; a-=1; a*=1; a/=1; a%=1;
+//                     en donde el 1 puede ser una expresion
+//                  c) Marcar errores semanticos cuando los incrementos de termino o incrementos
+//                     superen el rango de la variable
+//                  d) Considerar el inciso b) y c) para el for
+//                  e) Hacer funcionar el while y do while
 namespace Semantica
 {
     public class Lenguaje : Sintaxis
@@ -271,28 +269,36 @@ namespace Semantica
                 log.Write(getContenido()+" = ");
                 string nombre = getContenido();
                 match(Tipos.Identificador);
-                match(Tipos.Asignacion);
-                Expresion();
-                match(";");
-                float resultado = stack.Pop();
-                log.Write("= "+ resultado);
-                log.WriteLine();
-                //Console.WriteLine(resultado + " = " + dominante + " ");
-                if(dominante < evaluaNumero(resultado))
+                dominante = Variable.TipoDato.Char;
+                if(getClasificacion() == Tipos.IncrementoTermino || getClasificacion() == Tipos.IncrementoFactor)
                 {
-                    dominante = evaluaNumero(resultado);
-                }
-                if(dominante <= getTipo(nombre))
-                {
-                    if(evaluacion){
-                        modificaValor(nombre, resultado);
-                    }
+                    //Requerimiento 1.b
+                    //Requerimiento 1.c
                 }
                 else
                 {
-                    throw new Error("Error de semantica: no podemos asignar un: <" + dominante + "> a un: <" + getTipo(nombre) + "> en la linea " + linea,log);
+                    match(Tipos.Asignacion);
+                    Expresion();
+                    match(";");
+                    float resultado = stack.Pop();
+                    log.Write("= "+ resultado);
+                    log.WriteLine();
+                    //Console.WriteLine(resultado + " = " + dominante + " ");
+                    if(dominante < evaluaNumero(resultado))
+                    {
+                        dominante = evaluaNumero(resultado);
+                    }
+                    if(dominante <= getTipo(nombre))
+                    {
+                        if(evaluacion){
+                            modificaValor(nombre, resultado);
+                        }
+                    }
+                    else
+                    {
+                        throw new Error("Error de semantica: no podemos asignar un: <" + dominante + "> a un: <" + getTipo(nombre) + "> en la linea " + linea,log);
+                    }
                 }
-                
             }
             else
             {
@@ -303,9 +309,11 @@ namespace Semantica
         //While -> while(Condicion) bloque de instrucciones | instruccion
         private void While(bool evaluacion)
         {
+            bool validarFor;
+            bool inc;
+            //Hacer que funcione
             match("while");
             match("(");
-            //Requerimiento 4
             bool validarWhile = Condicion();
             if(!evaluacion)
             {
@@ -325,6 +333,9 @@ namespace Semantica
         //Do -> do bloque de instrucciones | intruccion while(Condicion)
         private void Do(bool evaluacion)
         {
+            bool validarFor;
+            bool inc;
+            
             match("do");
             if (getContenido() == "{")
             {
@@ -336,7 +347,6 @@ namespace Semantica
             } 
             match("while");
             match("(");
-            //Requerimiento 4
             bool validarDo = Condicion();
             if(!evaluacion)
             {
@@ -354,8 +364,6 @@ namespace Semantica
             bool inc;
             String varInc;
             Asignacion(evaluacion);
-            //Requerimiento 4
-            //Requerimiento 6:
             //a) necesito guardar la posicion del archivo de texto en una variable int
             long contador = getContador(); 
             //Console.WriteLine("Se guarda: " + contador);
@@ -673,6 +681,7 @@ namespace Semantica
                 log.Write(operador + " ");
                 float n1 = stack.Pop();
                 float n2 = stack.Pop();
+                //Requerimiento 1.a)
                 switch (operador)
                 {
                     case "*":
@@ -680,6 +689,9 @@ namespace Semantica
                         break;
                     case "/":
                         stack.Push(n2 / n1);
+                        break;
+                    case "%":
+                    stack.Push(n2 % n1);
                         break;
                 }
             }

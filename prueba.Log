@@ -1,7 +1,7 @@
 Archivo: prueba.cpp
-10/12/2022 2:16:51 PM
+10/18/2022 2:16:13 PM
 altura 2 
-i = altura = 5
+i = altura = 4
 i 0 
 j = 0 = 0
 j altura i - j 2 i 0 
@@ -11,8 +11,6 @@ j = 0 = 0
 j altura i - j 2 j altura i - j 2 j altura i - j 2 i 0 
 j = 0 = 0
 j altura i - j 2 j altura i - j 2 j altura i - j 2 j altura i - j 2 i 0 
-j = 0 = 0
-j altura i - j 2 j altura i - j 2 j altura i - j 2 j altura i - j 2 j altura i - j 2 i 0 
 j = 0 = 0
 j altura i - j 2 1 1 2 2 
 a = 256 = 256
