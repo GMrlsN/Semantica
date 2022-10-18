@@ -16,7 +16,7 @@ void main(){
         for(i = altura; i > 0; i--)
         {
             for(j = 0; j < altura-i; j++){
-                if(j!=1){
+                if(j!=2){
                     printf("*");
                 }
                 else{
