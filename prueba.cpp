@@ -13,9 +13,8 @@ void main(){
     y-=(5*2);
     printf("\nIncremento pro papu\n");
     printf(y);
-/*
     y = 255;
-    y++; //Generar error semantico
+    y-=5; //Generar error semantico
     y+=2;
     //Requerimiento 5.- Levanta una excepcion en el scanf si la captura no es un numero
     printf("Introduce la altura de la piramide: ");
@@ -52,5 +51,5 @@ void main(){
     printf(y);
     printf("\nA continuacion se intenta asignar un int a un char sin usar casteo: \n");
     y = a; //Requerimiento 1.- debe marcar error
-    */
+
 }

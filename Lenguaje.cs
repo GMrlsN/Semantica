@@ -4,7 +4,7 @@ using System.IO;
 using System.Collections.Generic;
 //Requerimiento 1.- Actualizacion:
 //                  a) Agregar el residuo de la division en porfactor                               //Ya jala
-//                  b) Agregar en asignacion los incrementos de termino y de factor 
+//                  b) Agregar en asignacion los incrementos de termino y de factor                 //Ya jala
 //                     a++; a--; a+=1; a-=1; a*=1; a/=1; a%=1;
 //                     en donde el 1 puede ser una expresion
 //                  c) Programar el destructor en la clase lexico
@@ -13,7 +13,7 @@ using System.Collections.Generic;
 //                     Programar el destructor para ejecutar el metodo cerrarAchivo
 //                     en program se tiene que implementar otra cosa
 //Requerimiento 2.- Actualizacion la Venganza:
-//                  a) Marcar errores semanticos cuando los incrementos de termino o incrementos
+//                  a) Marcar errores semanticos cuando los incrementos de termino o incrementos    //Ya jala
 //                     superen el rango de la variable
 //                  b) Considerar el inciso b) y c) para el for
 //                  c) Hacer funcionar el while y do while
@@ -439,7 +439,7 @@ namespace Semantica
             match("for");
             match("(");
             bool validarFor;
-            bool inc;
+            string inc;
             String varInc;
             Asignacion(evaluacion);
             //a) necesito guardar la posicion del archivo de texto en una variable int
@@ -468,13 +468,17 @@ namespace Semantica
                 {
                     Instruccion(validarFor);
                 }
-                if(inc)
+                if(inc == "++")
                 {
                     modificaValor(varInc, getValor(varInc) + 1);
                 }
-                else
+                else if (inc == "--")
                 {
                     modificaValor(varInc, getValor(varInc) - 1);
+                }
+                else
+                {
+                    //throw new Error("Error de sintaxis, no se reconoce el incremento <" + inc + "> en linea: " + linea, log);
                 }
                 //c) regresar a la posicion de lectura del archivo
                 if(validarFor)
@@ -490,11 +494,12 @@ namespace Semantica
         }
 
         //Incremento -> Identificador ++ | --
-        private bool IncrementoFor(bool evaluacion)
+        private string IncrementoFor(bool evaluacion)
         {
             string variable = getContenido();
             if(existeVariable(variable)){
                 match(Tipos.Identificador);
+                string OPfOR = getContenido();
                 if( getContenido() == "++")
                 {
                     match("++");
@@ -502,16 +507,39 @@ namespace Semantica
                     {
                         modificaValor(variable, getValor(variable) + 1);
                     }
-                    return true;
+                    return OPfOR;
                 }
-                else
+                else if( getContenido() == "--")
                 {
                     match("--");
                     if(evaluacion)
                     {
                         modificaValor(variable, getValor(variable) - 1);
                     }
-                    return false;
+                    return OPfOR;
+                }
+                else if(getContenido() == "+=")
+                {
+                    match("+=");
+                    Expresion();
+                    if(evaluacion)
+                    {
+                        modificaValor(variable, getValor(variable) + stack.Pop());
+                    }
+                    return OPfOR;
+                }
+                else if(getContenido() == "-=")
+                {
+                    match("-=");
+                    Expresion();
+                    if(evaluacion)
+                    {
+                        modificaValor(variable, getValor(variable) - stack.Pop());
+                    }
+                    return OPfOR;
+                }
+                else{
+ return OPfOR;
                 }
             }
             else
