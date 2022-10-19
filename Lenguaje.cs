@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 //Requerimiento 1.- Actualizacion:
-//                  a) Agregar el residuo de la division en porfactor
+//                  a) Agregar el residuo de la division en porfactor                               //Ya jala
 //                  b) Agregar en asignacion los incrementos de termino y de factor 
 //                     a++; a--; a+=1; a-=1; a*=1; a/=1; a%=1;
 //                     en donde el 1 puede ser una expresion
@@ -284,6 +284,19 @@ namespace Semantica
                 if(getClasificacion() == Tipos.IncrementoTermino || getClasificacion() == Tipos.IncrementoFactor)
                 {
                     //Requerimiento 1.b
+                    Console.WriteLine("Asignacion: "+getContenido());
+                    string operador = getContenido();
+                    switch(operador){
+                        case "++":
+                            //match(Tipos.IncrementoTermino);
+                            Incremento(evaluacion, nombre);
+                            break;
+                        case "--":
+                            Incremento(evaluacion, nombre);
+                            //match(Tipos.IncrementoTermino);
+                            break;
+                    }
+                    match(";");
                     //Requerimiento 1.c
                 }
                 else
@@ -391,7 +404,7 @@ namespace Semantica
                     validarFor = false;
                 }
                 varInc = getContenido();
-                inc = Incremento(validarFor);
+                inc = IncrementoFor(false);
                 match(")");
                 if (getContenido() == "{")
                 {
@@ -423,7 +436,7 @@ namespace Semantica
         }
 
         //Incremento -> Identificador ++ | --
-        private bool Incremento(bool evaluacion)
+        private bool IncrementoFor(bool evaluacion)
         {
             string variable = getContenido();
             if(existeVariable(variable)){
@@ -432,19 +445,19 @@ namespace Semantica
                 {
                     match("++");
                     return true;
-                    /*if(evaluacion)
+                    if(evaluacion)
                     {
                         modificaValor(variable, getValor(variable) + 1);
-                    }*/
+                    }
                 }
                 else
                 {
                     match("--");
                     return false;
-                    /*if(evaluacion)
+                    if(evaluacion)
                     {
                         modificaValor(variable, getValor(variable) - 1);
-                    }*/
+                    }
                 }
             }
             else
@@ -453,7 +466,30 @@ namespace Semantica
             }
             
         }
-
+        //Incremento normal
+        private bool Incremento(bool evaluacion, string variable)
+        {
+                match(Tipos.Identificador);
+                Console.WriteLine("Incremento: "+getContenido());
+                if( getContenido() == "++")
+                {
+                    match("++");
+                    return true;
+                    if(evaluacion)
+                    {
+                        modificaValor(variable, getValor(variable) + 1);
+                    }
+                }
+                else
+                {
+                    match("--");
+                    return false;
+                    if(evaluacion)
+                    {
+                        modificaValor(variable, getValor(variable) - 1);
+                    }
+                }
+        }
         //Switch -> switch (Expresion) {Lista de casos} | (default: )
         private void Switch(bool evaluacion)
         {

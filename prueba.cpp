@@ -8,6 +8,8 @@ float x;
 char y;int i ;int j;
 // Este programa calcula el volumen de un cilindro.
 void main(){
+    printf("\n");
+    y--;
 /*
     y = 255;
     y++; //Generar error semantico

@@ -1,15 +1,4 @@
 Archivo: prueba.cpp
-10/19/2022 2:52:43 PM
+10/19/2022 1:59:36 PM
 
-Variables: 
-area Float 0
-radio Float 0
-pi Float 0
-resultado Float 0
-a Int 0
-d Int 0
-altura Int 0
-x Float 0
-y Char 0
-i Int 0
-j Int 0
+y = Error de sintaxis, se espera un Identificador en linea: 12
