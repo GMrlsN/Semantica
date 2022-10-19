@@ -8,7 +8,7 @@ float x;
 char y;int i ;int j;
 // Este programa calcula el volumen de un cilindro.
 void main(){
-
+/*
     y = 255;
     y++; //Generar error semantico
     y+=2;
@@ -47,4 +47,5 @@ void main(){
     printf(y);
     printf("\nA continuacion se intenta asignar un int a un char sin usar casteo: \n");
     y = a; //Requerimiento 1.- debe marcar error
+    */
 }

@@ -7,10 +7,17 @@ using System.Collections.Generic;
 //                  b) Agregar en asignacion los incrementos de termino y de factor 
 //                     a++; a--; a+=1; a-=1; a*=1; a/=1; a%=1;
 //                     en donde el 1 puede ser una expresion
-//                  c) Marcar errores semanticos cuando los incrementos de termino o incrementos
+//                  c) Programar el destructor en la clase lexico
+//                     #libreria especial? contenido?
+//                     cerrar el archivo sin ejecutar el a.close
+//                     Programar el destructor para ejecutar el metodo cerrarAchivo
+//                     en program se tiene que implementar otra cosa
+//Requerimiento 2.- Actualizacion la Venganza:
+//                  a) Marcar errores semanticos cuando los incrementos de termino o incrementos
 //                     superen el rango de la variable
-//                  d) Considerar el inciso b) y c) para el for
-//                  e) Hacer funcionar el while y do while
+//                  b) Considerar el inciso b) y c) para el for
+//                  c) Hacer funcionar el while y do while
+//Requerimiento 3.- Actualizacion
 namespace Semantica
 {
     public class Lenguaje : Sintaxis
@@ -28,6 +35,10 @@ namespace Semantica
 
         }
 
+        ~Lenguaje(){
+            Console.WriteLine("Destuctor");
+            cerrar();
+        }
         private void addVariable(String nombre,Variable.TipoDato tipo)
         {
             variables.Add(new Variable(nombre, tipo));
