@@ -282,18 +282,72 @@ namespace Semantica
                 match(Tipos.Identificador);
                 dominante = Variable.TipoDato.Char;
                 if(getClasificacion() == Tipos.IncrementoTermino || getClasificacion() == Tipos.IncrementoFactor)
-                {
+                {   
                     //Requerimiento 1.b
-                    Console.WriteLine("Asignacion: "+getContenido());
+                    //Console.WriteLine("Asignacion: "+getContenido());
                     string operador = getContenido();
-                    switch(operador){
+                    switch(operador)
+                    {
                         case "++":
-                            //match(Tipos.IncrementoTermino);
                             Incremento(evaluacion, nombre);
                             break;
                         case "--":
                             Incremento(evaluacion, nombre);
-                            //match(Tipos.IncrementoTermino);
+                            break;
+                        case "+=":
+                            match(Tipos.IncrementoTermino);
+                            Expresion();
+                            float resultado = getValor(nombre)+stack.Pop();
+                            if(dominante < evaluaNumero(resultado))
+                            {
+                                dominante = evaluaNumero(resultado);
+                            }
+                            if(dominante <= getTipo(nombre))
+                            {
+                                if(evaluacion){
+                                    modificaValor(nombre, resultado);
+                                }
+                            }
+                            else
+                            {
+                                throw new Error("Error de semantica: no podemos asignar un: <" + dominante + "> a un: <" + getTipo(nombre) + "> en la linea " + linea,log);
+                            }
+                            modificaValor(nombre, resultado);
+                            break;
+                        case "-=":
+                            match(Tipos.IncrementoTermino);
+                            Expresion();
+                            modificaValor(nombre, getValor(nombre)-stack.Pop());
+                            break;
+                        case "*=":
+                            match(Tipos.IncrementoFactor);
+                            Expresion();
+                            resultado = getValor(nombre)*stack.Pop();
+                            if(dominante < evaluaNumero(resultado))
+                            {
+                                dominante = evaluaNumero(resultado);
+                            }
+                            if(dominante <= getTipo(nombre))
+                            {
+                                if(evaluacion){
+                                    modificaValor(nombre, resultado);
+                                }
+                            }
+                            else
+                            {
+                                throw new Error("Error de semantica: no podemos asignar un: <" + dominante + "> a un: <" + getTipo(nombre) + "> en la linea " + linea,log);
+                            }
+                            modificaValor(nombre, resultado);
+                            break;
+                        case "/=":
+                            match(Tipos.IncrementoFactor);
+                            Expresion();
+                            modificaValor(nombre, getValor(nombre)/stack.Pop());
+                            break;
+                        case "%=":
+                            match(Tipos.IncrementoFactor);
+                            Expresion();
+                            modificaValor(nombre, getValor(nombre)%stack.Pop());
                             break;
                     }
                     match(";");
@@ -444,20 +498,20 @@ namespace Semantica
                 if( getContenido() == "++")
                 {
                     match("++");
-                    return true;
                     if(evaluacion)
                     {
                         modificaValor(variable, getValor(variable) + 1);
                     }
+                    return true;
                 }
                 else
                 {
                     match("--");
-                    return false;
                     if(evaluacion)
                     {
                         modificaValor(variable, getValor(variable) - 1);
                     }
+                    return false;
                 }
             }
             else
@@ -469,25 +523,40 @@ namespace Semantica
         //Incremento normal
         private bool Incremento(bool evaluacion, string variable)
         {
-                match(Tipos.Identificador);
-                Console.WriteLine("Incremento: "+getContenido());
+                
+                //match(Tipos.IncrementoTermino);
+                //Consol
                 if( getContenido() == "++")
                 {
                     match("++");
-                    return true;
                     if(evaluacion)
                     {
-                        modificaValor(variable, getValor(variable) + 1);
+                        float resultado = getValor(variable) + 1;
+                            if(dominante < evaluaNumero(resultado))
+                            {
+                                dominante = evaluaNumero(resultado);
+                            }
+                            if(dominante <= getTipo(variable))
+                            {
+                                if(evaluacion){
+                                    modificaValor(variable, resultado);
+                                }
+                            }
+                            else
+                            {
+                                throw new Error("Error de semantica: no podemos asignar un: <" + dominante + "> a un: <" + getTipo(variable) + "> en la linea " + linea,log);
+                            }
                     }
+                    return true;
                 }
                 else
                 {
                     match("--");
-                    return false;
                     if(evaluacion)
                     {
                         modificaValor(variable, getValor(variable) - 1);
                     }
+                    return false;
                 }
         }
         //Switch -> switch (Expresion) {Lista de casos} | (default: )
