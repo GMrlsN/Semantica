@@ -476,6 +476,26 @@ namespace Semantica
                 {
                     modificaValor(varInc, getValor(varInc) - 1);
                 }
+                else if (inc == "-=")
+                {
+                    modificaValor(varInc, getValor(varInc) - stack.Pop());
+                }
+                else if (inc == "+=")
+                {
+                    modificaValor(varInc, getValor(varInc) + stack.Pop());
+                }
+                else if (inc == "*=")
+                {
+                    modificaValor(varInc, getValor(varInc) * stack.Pop());
+                }
+                else if (inc == "/=")
+                {
+                    modificaValor(varInc, getValor(varInc) / stack.Pop());
+                }
+                else if (inc == "%=")
+                {
+                    modificaValor(varInc, getValor(varInc) % stack.Pop());
+                }
                 else
                 {
                     //throw new Error("Error de sintaxis, no se reconoce el incremento <" + inc + "> en linea: " + linea, log);
