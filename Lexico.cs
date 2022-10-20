@@ -69,17 +69,21 @@ namespace Semantica
         public Lexico()
         {
             linea = 1;
-            //string path = "/workspace/Semantica/prueba.cpp";
-            string path = "C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Semantica\\prueba.cpp";
+            string path = "/workspace/Semantica/prueba.cpp";
+            //string path = "C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Semantica\\prueba.cpp";
             bool existencia = File.Exists(path);
-            //log = new StreamWriter("/workspace/Semantica/prueba.Log");
-            log = new StreamWriter("C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Semantica\\prueba.Log");
+            log = new StreamWriter("/workspace/Semantica/prueba.Log");
+            //log = new StreamWriter("C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Semantica\\prueba.Log");
             log.AutoFlush = true;
-            asm = new StreamWriter("prueba.asm");
+            //asm = new StreamWriter("C:\\Users\\gabri\\Onedriver\\Documents\\ITQ\\Materias\\Lenguajes y Autom)
+            asm = new StreamWriter("/workspace/Semantica/prueba.asm");
             asm.AutoFlush = true;
             //log.WriteLine("Primer constructor");
             log.WriteLine("Archivo: prueba.cpp");
-            log.WriteLine(DateTime.Now);//Requerimiento 1:
+            log.WriteLine(DateTime.Now);
+
+            asm.WriteLine(";Archivo: prueba.asm");
+            asm.WriteLine(";fecha: " + DateTime.Now);
             //Investigar como checar si un archivo existe o no existe 
             if (existencia == true)
             {

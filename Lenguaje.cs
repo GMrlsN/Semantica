@@ -17,7 +17,9 @@ using System.Collections.Generic;
 //                     superen el rango de la variable
 //                  b) Considerar el inciso b) y c) para el for
 //                  c) Hacer funcionar el while y do while
-//Requerimiento 3.- Actualizacion
+//Requerimiento 3.-
+//                  a) considerar las variables y los casteos de las expresiones matematicas
+//                  en ensamblador
 namespace Semantica
 {
     public class Lenguaje : Sintaxis
@@ -97,10 +99,15 @@ namespace Semantica
         //Programa  -> Librerias? Variables? Main
         public void Programa()
         {
+            asm.WriteLine("#make_COM");
+            asm.WriteLine("include emu8086.inc");
+            asm.WriteLine("ORG 100H");
             Libreria();
             Variables();
             Main();
             displayVariables();
+            asm.WriteLine("RET");
+            asm.WriteLine("END");
         }
 
         //Librerias -> #include<identificador(.h)?> Librerias?
@@ -298,6 +305,7 @@ namespace Semantica
                             match(Tipos.IncrementoTermino);
                             Expresion();
                             float resultado = getValor(nombre)+stack.Pop();
+                            asm.WriteLine("POP AX");
                             if(dominante < evaluaNumero(resultado))
                             {
                                 dominante = evaluaNumero(resultado);
@@ -318,6 +326,7 @@ namespace Semantica
                             match(Tipos.IncrementoTermino);
                             Expresion();
                             modificaValor(nombre, getValor(nombre)-stack.Pop());
+                            asm.WriteLine("POP AX");
                             break;
                         case "*=":
                             match(Tipos.IncrementoFactor);
@@ -343,11 +352,13 @@ namespace Semantica
                             match(Tipos.IncrementoFactor);
                             Expresion();
                             modificaValor(nombre, getValor(nombre)/stack.Pop());
+                            asm.WriteLine("POP AX");
                             break;
                         case "%=":
                             match(Tipos.IncrementoFactor);
                             Expresion();
                             modificaValor(nombre, getValor(nombre)%stack.Pop());
+                            asm.WriteLine("POP AX");
                             break;
                     }
                     match(";");
@@ -359,6 +370,7 @@ namespace Semantica
                     Expresion();
                     match(";");
                     float resultado = stack.Pop();
+                    asm.WriteLine("POP AX");
                     log.Write("= "+ resultado);
                     log.WriteLine();
                     //Console.WriteLine(resultado + " = " + dominante + " ");
@@ -479,22 +491,27 @@ namespace Semantica
                 else if (inc == "-=")
                 {
                     modificaValor(varInc, getValor(varInc) - stack.Pop());
+                    asm.WriteLine("POP AX");
                 }
                 else if (inc == "+=")
                 {
                     modificaValor(varInc, getValor(varInc) + stack.Pop());
+                    asm.WriteLine("POP AX");
                 }
                 else if (inc == "*=")
                 {
                     modificaValor(varInc, getValor(varInc) * stack.Pop());
+                    asm.WriteLine("POP AX");
                 }
                 else if (inc == "/=")
                 {
                     modificaValor(varInc, getValor(varInc) / stack.Pop());
+                    asm.WriteLine("POP AX");
                 }
                 else if (inc == "%=")
                 {
                     modificaValor(varInc, getValor(varInc) % stack.Pop());
+                    asm.WriteLine("POP AX");
                 }
                 else
                 {
@@ -545,6 +562,7 @@ namespace Semantica
                     if(evaluacion)
                     {
                         modificaValor(variable, getValor(variable) + stack.Pop());
+                        asm.WriteLine("POP AX");
                     }
                     return OPfOR;
                 }
@@ -555,6 +573,7 @@ namespace Semantica
                     if(evaluacion)
                     {
                         modificaValor(variable, getValor(variable) - stack.Pop());
+                        asm.WriteLine("POP AX");
                     }
                     return OPfOR;
                 }
@@ -614,6 +633,7 @@ namespace Semantica
             match("(");
             Expresion();
             stack.Pop();
+            asm.WriteLine("POP AX");
             match(")");
             match("{");
             ListaDeCasos(evaluacion);
@@ -641,6 +661,7 @@ namespace Semantica
             match("case");
             Expresion();
             stack.Pop();
+            asm.WriteLine("POP AX");
             match(":");
             ListaInstruccionesCase(evaluacion);
             if(getContenido() == "break")
@@ -662,7 +683,9 @@ namespace Semantica
             match(Tipos.OperadorRelacional);
             Expresion();
             float e2 = stack.Pop();
+            asm.WriteLine("POP AX");
             float e1 = stack.Pop();
+            asm.WriteLine("POP BX");
             switch (operador){
                 case "==":
                     return e1 == e2;
@@ -759,6 +782,7 @@ namespace Semantica
                 if(evaluacion)
                 {
                     Console.Write(stack.Pop());
+                    asm.WriteLine("POP AX");
                 }
             }
             match(")");
@@ -816,14 +840,20 @@ namespace Semantica
                 Termino();
                 log.Write(operador + " ");
                 float n1 = stack.Pop();
+                asm.WriteLine("POP AX");
                 float n2 = stack.Pop();
+                asm.WriteLine("POP BX");
                 switch (operador)
                 {
                     case "+":
                         stack.Push(n2 + n1);
+                        asm.WriteLine("ADD AX, BX");
+                        asm.WriteLine("PUSH AX");
                         break;
                     case "-":
                         stack.Push(n2 - n1);
+                        asm.WriteLine("SUB AX, BX");
+                        asm.WriteLine("PUSH AX");
                         break;
                 }
             }
@@ -844,18 +874,26 @@ namespace Semantica
                 Factor();
                 log.Write(operador + " ");
                 float n1 = stack.Pop();
+                asm.WriteLine("POP AX");
                 float n2 = stack.Pop();
+                asm.WriteLine("POP BX");
                 //Requerimiento 1.a)
                 switch (operador)
                 {
                     case "*":
                         stack.Push(n2 * n1);
+                        asm.WriteLine("MUL BX");
+                        asm.WriteLine("PUSH AX");
                         break;
                     case "/":
                         stack.Push(n2 / n1);
+                        asm.WriteLine("DIV BX");
+                        asm.WriteLine("PUSH AX");
                         break;
                     case "%":
-                    stack.Push(n2 % n1);
+                        stack.Push(n2 % n1);
+                        asm.WriteLine("DIV BX");
+                        asm.WriteLine("PUSH DX");
                         break;
                 }
             }
@@ -871,6 +909,8 @@ namespace Semantica
                     dominante = evaluaNumero(float.Parse(getContenido()));
                 }
                 stack.Push(float.Parse(getContenido()));
+                asm.WriteLine("MOV AX, " + float.Parse(getContenido()));
+                asm.WriteLine("PUSH AX");
                 match(Tipos.Numero);
             }
             else if (getClasificacion() == Tipos.Identificador)
@@ -926,6 +966,7 @@ namespace Semantica
                     //Ejemplo: si el casteo es (char) y el pop regresa un 256
                     //         el valor equivalente en casteo es 0
                     float valor = stack.Pop();
+                    asm.WriteLine("POP AX");
                     stack.Push(convert(valor,tipo));
                     dominante = casteo;
 

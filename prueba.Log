@@ -1,5 +1,5 @@
 Archivo: prueba.cpp
-10/19/2022 7:28:33 PM
+10/20/2022 2:59:10 PM
 
 y = 255 = 255
 y 
@@ -8,11 +8,8 @@ y = 255 = 255
 
 y = 5 
 y = 2 altura 4 
-i = altura = 10
+i = altura = 8
 i 0 2 
-j = 0 = 0
-j altura i - j 2 % 0 
-j = 1 i 0 2 
 j = 0 = 0
 j altura i - j 2 % 0 
 j = 1 i 0 2 
@@ -32,5 +29,15 @@ a = 256 = 256
 a 
 y = a = 0
 y 
-y = a = 256
-Error de semantica: no podemos asignar un: <Int> a un: <Char> en la linea 55
+Variables: 
+area Float 0
+radio Float 0
+pi Float 0
+resultado Float 0
+a Int 256
+d Int 0
+altura Int 8
+x Float 0
+y Char 0
+i Int -2
+j Int 2
