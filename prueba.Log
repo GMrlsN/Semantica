@@ -1,43 +1,18 @@
 Archivo: prueba.cpp
-10/20/2022 2:59:10 PM
+10/21/2022 2:55:28 PM
 
-y = 255 = 255
-y 
-y = 5 2 * y 
-y = 255 = 255
+a = 5 3 + 8 * 10 4 - 2 / - = 61
 
-y = 5 
-y = 2 altura 4 
-i = altura = 8
-i 0 2 
-j = 0 = 0
-j altura i - j 2 % 0 
-j = 1 i 0 2 
-j = 0 = 0
-j altura i - j 2 % 0 
-j = 1 i 0 2 
-j = 0 = 0
-j altura i - j 2 % 0 
-j = 1 i 0 2 
-j = 0 = 0
-j altura i - j 2 % 0 
-j = 1 i 0 2 
-j = 0 = 0
-j altura i - j 2 % 0 
-j = 1 1 1 2 2 
-a = 256 = 256
-a 
-y = a = 0
-y 
+
 Variables: 
-area Float 0
-radio Float 0
-pi Float 0
-resultado Float 0
-a Int 256
-d Int 0
-altura Int 8
-x Float 0
-y Char 0
-i Int -2
-j Int 2
+area, Float, 0
+radio, Float, 0
+pi, Float, 0
+resultado, Float, 0
+a, Int, 61
+d, Int, 0
+altura, Int, 0
+x, Float, 0
+y, Char, 0
+i, Int, 0
+j, Int, 0
