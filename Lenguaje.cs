@@ -29,13 +29,14 @@ namespace Semantica
         Stack<float> stack = new Stack<float>();
 
         Variable.TipoDato dominante;
+        int cIf;
         public Lenguaje()
         {
-
+            cIf = 0;
         }
         public Lenguaje(string nombre) : base(nombre)
         {
-
+            cIf = 0;
         }
 
         ~Lenguaje(){
@@ -713,6 +714,7 @@ namespace Semantica
         //If -> if(Condicion) bloque de instrucciones (else bloque de instrucciones)?
         private void If(bool evaluacion)
         {
+            string etiquetaIf = "if" + ++cIf;
             match("if");
             match("(");
             //Requerimiento 4
@@ -746,6 +748,8 @@ namespace Semantica
                     Instruccion(!validarIf);
                 }
             }
+            cIf++;
+            asm.WriteLine(etiquetaIf + ":");
         }
 
         //Printf -> printf(cadena o expresion); 

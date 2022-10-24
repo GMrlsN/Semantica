@@ -53,5 +53,14 @@ void main(){
     printf("\nA continuacion se intenta asignar un int a un char sin usar casteo: \n");
     //y = a; //Requerimiento 1.- debe marcar error
     */
-    a = (5+3)*8-(10-4)/2;
+
+    //a = (5+3)*8-(10-4)/2;
+    y = 61;
+    if(y == 61){
+        x = 0;
+        if(i == 5){
+            i = 0;
+        }
+        x = 10;
+    }
 }
