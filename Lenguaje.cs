@@ -21,6 +21,7 @@ using System.Collections.Generic;
 //                  a) considerar las variables y los casteos de las expresiones matematicas
 //                  en ensamblador
 //                  b) considerar el residuo de la division en ensamblador (el residuo se queda en dx)
+//                  c) 
 namespace Semantica
 {
     public class Lenguaje : Sintaxis
@@ -390,13 +391,13 @@ namespace Semantica
                     {
                         if(evaluacion){
                             modificaValor(nombre, resultado);
-                            asm.WriteLine("MOV " + nombre + ", AX");
                         }
                     }
                     else
                     {
                         throw new Error("Error de semantica: no podemos asignar un: <" + dominante + "> a un: <" + getTipo(nombre) + "> en la linea " + linea,log);
                     }
+                    asm.WriteLine("MOV " + nombre + ", AX");
                 }
             }
             else
@@ -413,7 +414,7 @@ namespace Semantica
             //Hacer que funcione
             match("while");
             match("(");
-            bool validarWhile = Condicion();
+            bool validarWhile = Condicion("");
             if(!evaluacion)
             {
                 validarWhile = false;
@@ -434,7 +435,9 @@ namespace Semantica
         {
             bool validarFor;
             bool inc;
-            
+            long contador = getContador(); 
+            int linea = getLinea();  
+            int tam = getContenido().Length - 1; 
             match("do");
             if (getContenido() == "{")
             {
@@ -446,13 +449,22 @@ namespace Semantica
             } 
             match("while");
             match("(");
-            bool validarDo = Condicion();
+            bool validarDo = Condicion("");
             if(!evaluacion)
             {
                 validarDo = false;
             }
             match(")");
             match(";");
+            if(validarDo)
+                {
+                archivo.DiscardBufferedData();
+                archivo.BaseStream.Seek(contador-tam, SeekOrigin.Begin);
+                NextToken();
+                setContador(contador);
+                setLinea(linea);
+                //d) sacar otro token
+            }
         }
         //For -> for(Asignacion Condicion; Incremento) BloqueInstruccones | Intruccion 
         private void For(bool evaluacion)
@@ -463,16 +475,13 @@ namespace Semantica
             string inc;
             String varInc;
             Asignacion(evaluacion);
-            //a) necesito guardar la posicion del archivo de texto en una variable int
             long contador = getContador(); 
-            //Console.WriteLine("Se guarda: " + contador);
             int linea = getLinea();  
-            //Console.WriteLine("peek " + (char)archivo.Peek());
             int tam = getContenido().Length - 1; 
             //b) metemos un ciclo while
             do
             {
-                validarFor = Condicion();
+                validarFor = Condicion("");
                 match(";");
                 if(!evaluacion)
                 {
@@ -685,7 +694,7 @@ namespace Semantica
         }
 
         //Condicion -> Expresion operador relacional Expresion
-        private bool Condicion()
+        private bool Condicion(string etiqueta)
         {
             Expresion();
             String operador = getContenido();
@@ -695,18 +704,25 @@ namespace Semantica
             asm.WriteLine("POP AX");
             float e1 = stack.Pop();
             asm.WriteLine("POP BX");
+            asm.WriteLine("CMP AX,BX");
             switch (operador){
                 case "==":
+                    asm.WriteLine("JNE " + etiqueta);
                     return e1 == e2;
                 case ">":
+                    asm.WriteLine("JLE " + etiqueta);
                     return e1 > e2;
                 case "<":
+                    asm.WriteLine("JGE " + etiqueta);
                     return e1 < e2;
                 case ">=":
+                    asm.WriteLine("JL " + etiqueta);
                     return e1 >= e2;
                 case "<=":
+                    asm.WriteLine("JG " + etiqueta);
                     return e1 <= e2;
                 default:
+                    asm.WriteLine("JE " + etiqueta);
                     return e1 != e2;
             }
         }
@@ -718,7 +734,7 @@ namespace Semantica
             match("if");
             match("(");
             //Requerimiento 4
-            bool validarIf = Condicion();
+            bool validarIf = Condicion(etiquetaIf); 
             if(!evaluacion)
             {
                 validarIf = false;

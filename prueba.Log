@@ -1,13 +1,7 @@
 Archivo: prueba.cpp
-10/24/2022 2:44:25 PM
-
-y = 61 = 61
-y 61 
+10/25/2022 2:57:41 PM
+61 60 
 x = 0 = 0
-i 5 
-i = 0 = 0
-
-x = 10 = 10
 
 
 Variables: 
@@ -18,7 +12,7 @@ resultado, Float, 0
 a, Int, 0
 d, Int, 0
 altura, Int, 0
-x, Float, 10
-y, Char, 61
+x, Float, 0
+y, Char, 0
 i, Int, 0
 j, Int, 0
