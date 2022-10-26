@@ -19,9 +19,16 @@ using System.Collections.Generic;
 //                  c) Hacer funcionar el while y do while
 //Requerimiento 3.-
 //                  a) considerar las variables y los casteos de las expresiones matematicas
-//                  en ensamblador
+//                     en ensamblador
 //                  b) considerar el residuo de la division en ensamblador (el residuo se queda en dx)
-//                  c) 
+//                  c) programar el printf y el scanf en ASM
+//Requerimiento 4.-
+//                  a) Programar el else en ASM
+//                  b) programar el for en ASM 
+//Requerimiento 5.- 
+//                  a) Programar el while en ASM
+//                  b) Programar el do while en ASM
+//
 namespace Semantica
 {
     public class Lenguaje : Sintaxis
@@ -31,19 +38,18 @@ namespace Semantica
 
         Variable.TipoDato dominante;
         int cIf;
+        int cFor;
         public Lenguaje()
         {
-            cIf = 0;
+            cIf  = cFor = 0;
         }
         public Lenguaje(string nombre) : base(nombre)
         {
-            cIf = 0;
+            cIf = cFor = 0;
+            
         }
 
-        ~Lenguaje(){
-            Console.WriteLine("Destuctor");
-            cerrar();
-        }
+        
         private void addVariable(String nombre,Variable.TipoDato tipo)
         {
             variables.Add(new Variable(nombre, tipo));
@@ -469,6 +475,9 @@ namespace Semantica
         //For -> for(Asignacion Condicion; Incremento) BloqueInstruccones | Intruccion 
         private void For(bool evaluacion)
         {
+            string etiquetaInicioFor = "inicioFor" + cFor;
+            string etiquetaFinalFor = "finFor" + cFor++;
+            asm.WriteLine(etiquetaInicioFor +":");
             match("for");
             match("(");
             bool validarFor;
@@ -546,6 +555,7 @@ namespace Semantica
                 //d) sacar otro token
                 }
             }while(validarFor);
+            asm.WriteLine(etiquetaFinalFor +":");
         }
 
         //Incremento -> Identificador ++ | --
@@ -1001,5 +1011,10 @@ namespace Semantica
                 }
             }
         }
+        ~Lenguaje(){
+            Console.WriteLine("Destuctor");
+            cerrar();
+        }
     }
+    
 }

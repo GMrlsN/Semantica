@@ -1,7 +1,47 @@
 Archivo: prueba.cpp
-10/25/2022 2:57:41 PM
-61 60 
-x = 0 = 0
+10/26/2022 3:00:08 PM
+
+i = 0 = 0
+i 1 
+j = 0 = 0
+j 1 
+x = x 1 + = 1
+
+k = 0 = 0
+k 1 
+l = 0 = 0
+l 1 
+y = y 2 + = 2
+l 1 
+y = y 2 + = 4
+k 1 
+l = 0 = 0
+l 1 
+y = y 2 + = 4
+j 1 
+x = x 1 + = 2
+
+k = 0 = 0
+k 1 
+l = 0 = 0
+l 1 
+y = y 2 + = 4
+i 1 
+j = 0 = 0
+j 1 
+x = x 1 + = 2
+
+k = 0 = 0
+k 1 
+l = 0 = 0
+l 1 
+y = y 2 + = 4
+1 1 2 2 3 3 
+x = 1 = 1
+
+a = 3 = 3
+
+y = 2 = 2
 
 
 Variables: 
@@ -9,10 +49,12 @@ area, Float, 0
 radio, Float, 0
 pi, Float, 0
 resultado, Float, 0
-a, Int, 0
+a, Int, 3
 d, Int, 0
 altura, Int, 0
-x, Float, 0
-y, Char, 0
-i, Int, 0
-j, Int, 0
+x, Float, 1
+y, Int, 2
+i, Int, 2
+j, Int, 3
+k, Int, 4
+l, Int, 5

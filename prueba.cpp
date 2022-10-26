@@ -5,9 +5,17 @@
 float area, radio, pi, resultado;
 int a, d, altura;
 float x;
-char y;int i ;int j;
+int y,  i ,j, k , l;
 // Este programa calcula el volumen de un cilindro.
 void main(){
+    for(i = 0; i < 1; i++){
+        for(j = 0; j < 1; j++){
+            x = x+1;
+            for(k = 0; k < 1; k++)
+            for(l = 0; l < 1; l++)
+            y = y+2;
+       }
+    }
     /*
     y = 255;
     printf(y);
@@ -53,8 +61,16 @@ void main(){
     printf("\nA continuacion se intenta asignar un int a un char sin usar casteo: \n");
     //y = a; //Requerimiento 1.- debe marcar error
     */
-    if(61 == 60){
-        x = 0;
+    if(1 == 1){
+        if(2 == 2)
+        {
+            if( 3 == 3)
+            {
+                x = 1;
+            }
+            a = 3;
+        }
+        y = 2;
     }
 
 }
