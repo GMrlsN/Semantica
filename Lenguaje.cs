@@ -10,7 +10,7 @@ using System.Collections.Generic;
 //                  c) Programar el destructor en la clase lexico
 //                     #libreria especial? contenido?
 //                     cerrar el archivo sin ejecutar el a.close
-//                     Programar el destructor para ejecutar el metodo cerrarAchivo
+//                     Programar el     tor para ejecutar el metodo cerrarAchivo
 //                     en program se tiene que implementar otra cosa
 //Requerimiento 2.- Actualizacion la Venganza:
 //                  a) Marcar errores semanticos cuando los incrementos de termino o incrementos    //Ya jala
@@ -48,8 +48,6 @@ namespace Semantica
             cIf = cFor = 0;
             
         }
-
-        
         private void addVariable(String nombre,Variable.TipoDato tipo)
         {
             variables.Add(new Variable(nombre, tipo));
@@ -113,6 +111,7 @@ namespace Semantica
         //Programa  -> Librerias? Variables? Main
         public void Programa()
         {
+            
             asm.WriteLine("#make_COM#");
             asm.WriteLine("include emu8086.inc");
             asm.WriteLine("ORG 100H");
@@ -1016,7 +1015,6 @@ namespace Semantica
             }
         }
         ~Lenguaje(){
-            GC.SuppressFinalize(this);
             Console.WriteLine("Destuctor");
             cerrar();
         }
