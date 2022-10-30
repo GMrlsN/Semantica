@@ -7,21 +7,21 @@ using System.Collections.Generic;
 //                  b) Agregar en asignacion los incrementos de termino y de factor                 //Ya jala
 //                     a++; a--; a+=1; a-=1; a*=1; a/=1; a%=1;
 //                     en donde el 1 puede ser una expresion
-//                  c) Programar el destructor en la clase lexico
+//                  c) Programar el destructor en la clase lexico                                   //Ya jala
 //                     #libreria especial? contenido?
 //                     cerrar el archivo sin ejecutar el a.close
-//                     Programar el     tor para ejecutar el metodo cerrarAchivo
+//                     Programar el destructor para ejecutar el metodo cerrarAchivo
 //                     en program se tiene que implementar otra cosa
 //Requerimiento 2.- Actualizacion la Venganza:
 //                  a) Marcar errores semanticos cuando los incrementos de termino o incrementos    //Ya jala
 //                     superen el rango de la variable
-//                  b) Considerar el inciso b) y c) para el for
+//                  b) Considerar el inciso b) y c) para el for                                     //Ya jala
 //                  c) Hacer funcionar el while y do while
 //Requerimiento 3.-
-//                  a) considerar las variables y los casteos de las expresiones matematicas
+//                  a) considerar las variables y los casteos de las expresiones matematicas       //Ya jala?
 //                     en ensamblador
-//                  b) considerar el residuo de la division en ensamblador (el residuo se queda en dx)
-//                  c) programar el printf y el scanf en ASM
+//                  b) considerar el residuo de la division en ensamblador (el residuo se queda en dx) //Ya jala
+//                  c) programar el printf y el scanf en ASM                                       //Ya jala
 //Requerimiento 4.-
 //                  a) Programar el else en ASM
 //                  b) programar el for en ASM 
@@ -518,27 +518,27 @@ namespace Semantica
                 else if (inc == "-=")
                 {
                     modificaValor(varInc, getValor(varInc) - stack.Pop());
-                    asm.WriteLine("POP AX");
+                    //asm.WriteLine("POP AX");
                 }
                 else if (inc == "+=")
                 {
                     modificaValor(varInc, getValor(varInc) + stack.Pop());
-                    asm.WriteLine("POP AX");
+                    //asm.WriteLine("POP AX");
                 }
                 else if (inc == "*=")
                 {
                     modificaValor(varInc, getValor(varInc) * stack.Pop());
-                    asm.WriteLine("POP AX");
+                    //asm.WriteLine("POP AX");
                 }
                 else if (inc == "/=")
                 {
                     modificaValor(varInc, getValor(varInc) / stack.Pop());
-                    asm.WriteLine("POP AX");
+                    //asm.WriteLine("POP AX");
                 }
                 else if (inc == "%=")
                 {
                     modificaValor(varInc, getValor(varInc) % stack.Pop());
-                    asm.WriteLine("POP AX");
+                    //asm.WriteLine("POP AX");
                 }
                 else
                 {
