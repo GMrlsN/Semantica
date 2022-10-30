@@ -1,6 +1,6 @@
 ;Archivo: prueba.asm
-;fecha: 10/26/2022 2:02:36 PM
-#make_COM
+;fecha: 10/30/2022 12:35:56 PM
+#make_COM#
 include emu8086.inc
 ORG 100H
 
@@ -267,4 +267,4 @@ POP AX
 MOV y, AX
 if1:
 RET
-END
+DEFINE_SCAN_NUM

@@ -1016,6 +1016,7 @@ namespace Semantica
             }
         }
         ~Lenguaje(){
+            GC.SuppressFinalize(this);
             Console.WriteLine("Destuctor");
             cerrar();
         }
