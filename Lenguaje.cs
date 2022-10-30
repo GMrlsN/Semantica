@@ -113,7 +113,7 @@ namespace Semantica
         //Programa  -> Librerias? Variables? Main
         public void Programa()
         {
-            asm.WriteLine("#make_COM");
+            asm.WriteLine("#make_COM#");
             asm.WriteLine("include emu8086.inc");
             asm.WriteLine("ORG 100H");
             Libreria();
@@ -122,7 +122,8 @@ namespace Semantica
             Main();
             displayVariables();
             asm.WriteLine("RET");
-            asm.WriteLine("END");
+            asm.WriteLine("DEFINE_SCAN_NUM");
+            //asm.WriteLine("END");
         }
 
         //Librerias -> #include<identificador(.h)?> Librerias?
@@ -812,6 +813,7 @@ namespace Semantica
                 cadena = new string(cad);
                 Console.Write(cadena);
                 }
+                asm.WriteLine("PRINTN " + getContenido());
                 match(Tipos.Cadena);
             }
             else{
@@ -821,6 +823,7 @@ namespace Semantica
                 {
                     Console.Write(stack.Pop());
                     asm.WriteLine("POP AX");
+                    //Requerimiento printF codigo ensamblador para imprimir una variable
                 }
             }
             match(")");
@@ -839,7 +842,6 @@ namespace Semantica
                 string nombreVariable = getContenido();
                 match(Tipos.Identificador);
                 if(evaluacion){
-                //Requerimiento 5    
                 string val = "" + Console.ReadLine();
                 for(int i = 0; i < val.Length; i++){
                     if(!Char.IsDigit(val[i])){
@@ -853,6 +855,8 @@ namespace Semantica
                 }
                 match(")");
                 match(";");
+                asm.WriteLine("CALL SCAN_NUM");
+                asm.WriteLine("MOV " + nombreVariable + ", CX");
             }
             else
             {
