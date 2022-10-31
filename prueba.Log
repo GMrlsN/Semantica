@@ -1,8 +1,7 @@
 Archivo: prueba.cpp
-10/30/2022 3:50:44 PM
-
-i = 0 = 0
-i 10 2 i i 10 2 i i 10 2 i i 10 2 i i 10 2 i i 10 2 i 
+10/31/2022 3:54:56 PM
+i 10 i 
+i = 2 
 
 Variables: 
 area, Float, 0
@@ -14,7 +13,7 @@ d, Int, 0
 altura, Int, 0
 x, Float, 0
 y, Int, 0
-i, Int, 20
+i, Int, 2
 j, Int, 0
 k, Int, 0
 l, Int, 0
