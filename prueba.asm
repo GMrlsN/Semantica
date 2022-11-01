@@ -1,5 +1,5 @@
 ;Archivo: prueba.asm
-;fecha: 10/31/2022 3:54:56 PM
+;fecha: 10/31/2022 11:29:35 PM
 #make_COM#
 include emu8086.inc
 ORG 100H
@@ -19,15 +19,20 @@ ORG 100H
 	j DW ?
 	k DW ?
 	l DW ?
+inicioDo0:
+PRINTN ""
+PRINT "Ete sech\n"
+INC i
+MOV BX, i
+PUSH BX
 MOV AX, 10
 PUSH AX
-POP AX
 POP BX
-CMP AX,BX
-JLE 
-PRINTN "Hola\n"
-MOV AX, 2
-PUSH AX
 POP AX
+CMP AX,BX
+JLE finDo0
+JMP inicioDo0
+finDo0:
+END
 RET
 DEFINE_SCAN_NUM

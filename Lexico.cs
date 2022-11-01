@@ -69,14 +69,26 @@ namespace Semantica
         public Lexico()
         {
             linea = 1;
-            string path = "/workspace/Semantica/prueba.cpp";
+            string path;
+            bool windows = true;
+            if(windows)
+            {
+                path = "C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Semantica\\prueba.cpp";
+                asm = new StreamWriter("C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Semantica\\prueba.asm");
+                log = new StreamWriter("C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Semantica\\prueba.Log");
+            }
+            else
+            {
+                path = "/workspace/Semantica/prueba.cpp";
+                log = new StreamWriter("/workspace/Semantica/prueba.Log");
+                asm = new StreamWriter("/workspace/Semantica/prueba.asm");
+
+            }
             //string path = "C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Semantica\\prueba.cpp";
             bool existencia = File.Exists(path);
-            log = new StreamWriter("/workspace/Semantica/prueba.Log");
             //log = new StreamWriter("C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Semantica\\prueba.Log");
             log.AutoFlush = true;
             //asm = new StreamWriter("C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Semantica\\prueba.asm");
-            asm = new StreamWriter("/workspace/Semantica/prueba.asm");
             asm.AutoFlush = true;
             //log.WriteLine("Primer constructor");
             log.WriteLine("Archivo: prueba.cpp");
