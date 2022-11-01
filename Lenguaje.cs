@@ -27,7 +27,7 @@ using System.Collections.Generic;
 //                  b) programar el for en ASM                                                     //Ya jala
 //Requerimiento 5.- 
 //                  a) Programar el while en ASM                                                   //Ya jala                   
-//                  b) Programar el do while en ASM
+//                  b) Programar el do while en ASM                                                //Ya jala
 //
 namespace Semantica
 {
