@@ -423,6 +423,7 @@ namespace Semantica
                         if(evaluacion)
                         {
                             modificaValor(nombre, resultado);
+                            //asm.WriteLine("MOV " + nombre + ", " + resultado);
                         }
                     }
                     else
@@ -1175,9 +1176,12 @@ namespace Semantica
                     float valor = stack.Pop();
                     if(evasm)
                     asm.WriteLine("POP AX");
-                    stack.Push(convert(valor,tipo));
-                    if(evasm)
+                    valor = convert(valor,tipo);
+                    stack.Push(valor);
+                    if(evasm){
+                    asm.WriteLine("MOV AX," + valor);
                     asm.WriteLine("PUSH AX");
+                    }
                     dominante = casteo;
 
                 }

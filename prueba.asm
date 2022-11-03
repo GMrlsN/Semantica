@@ -1,5 +1,5 @@
 ;Archivo: prueba.asm
-;fecha: 11/1/2022 3:52:40 PM
+;fecha: 11/3/2022 3:47:40 PM
 #make_COM#
 include emu8086.inc
 ORG 100H
@@ -23,6 +23,7 @@ ORG 100H
 MOV AX, 256
 PUSH AX
 POP AX
+MOV AX,0
 PUSH AX
 POP AX
 MOV m, AX
