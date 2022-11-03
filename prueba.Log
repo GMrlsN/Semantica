@@ -1,6 +1,8 @@
 Archivo: prueba.cpp
-10/31/2022 11:29:35 PM
+11/1/2022 3:52:40 PM
 
+m = 256 = 0
+m 
 i = i 10 
 
 Variables: 
@@ -17,3 +19,4 @@ i, Int, 1
 j, Int, 0
 k, Int, 0
 l, Int, 0
+m, Char, 0

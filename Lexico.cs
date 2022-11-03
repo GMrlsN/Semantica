@@ -70,7 +70,7 @@ namespace Semantica
         {
             linea = 1;
             string path;
-            bool windows = true;
+            bool windows = false;
             if(windows)
             {
                 path = "C:\\Users\\gabri\\OneDrive\\Documents\\ITQ\\Materias\\Lenguajes y Automatas II\\Semantica\\prueba.cpp";

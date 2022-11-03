@@ -6,8 +6,11 @@ float area, radio, pi, resultado;
 int a, d, altura;
 float x;
 int y,  i ,j, k , l;
+char m;
 // Este programa calcula el volumen de un cilindro.
 void main(){
+    m = (char)(256);
+    printf(m);
     do{
         printf("Ete sech\n");
         i++;

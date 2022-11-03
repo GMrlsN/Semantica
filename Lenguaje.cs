@@ -1176,6 +1176,8 @@ namespace Semantica
                     if(evasm)
                     asm.WriteLine("POP AX");
                     stack.Push(convert(valor,tipo));
+                    if(evasm)
+                    asm.WriteLine("PUSH AX");
                     dominante = casteo;
 
                 }
