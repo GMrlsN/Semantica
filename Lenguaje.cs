@@ -114,19 +114,17 @@ namespace Semantica
         //Programa  -> Librerias? Variables? Main
         public void Programa()
         {
-            
             asm.WriteLine("#make_COM#");
-            asm.WriteLine("include emu8086.inc");
+            asm.WriteLine("include \"emu8086.inc\"");
             asm.WriteLine("ORG 100H");
             Libreria();
             Variables();
             variablesASM();
             Main();
             displayVariables();
+            asm.WriteLine("DEFINE_SCAN_NUM");
             asm.WriteLine("END");
             asm.WriteLine("RET");
-            asm.WriteLine("DEFINE_SCAN_NUM");
-            //asm.WriteLine("END");
         }
 
         //Librerias -> #include<identificador(.h)?> Librerias?
@@ -451,6 +449,7 @@ namespace Semantica
             string variable = getContenido();
             long contador = getContador();
             int linea = getLinea();
+            int tam = getContenido().Length ; 
             do{
                 if(evasm)
                 {
@@ -473,7 +472,7 @@ namespace Semantica
             if(validarWhile)
             {
                 archivo.DiscardBufferedData();
-                archivo.BaseStream.Seek(contador, SeekOrigin.Begin);
+                archivo.BaseStream.Seek(contador - tam, SeekOrigin.Begin);
                 NextToken();
                 setContador(contador);
                 setLinea(linea);
@@ -486,6 +485,7 @@ namespace Semantica
             }
             evasm = false;
             }while (validarWhile);
+            evasm = true;
         }
 
         //Do -> do bloque de instrucciones | intruccion while(Condicion)
@@ -502,6 +502,7 @@ namespace Semantica
             {
             asm.WriteLine(etiquetaInicioDo +":");
             }
+            //Console.WriteLine("contenido; " + getContenido());
             if (getContenido() == "{")
             {
                 BloqueInstrucciones(evaluacion, evasm);
@@ -522,7 +523,7 @@ namespace Semantica
             if(validarDo)
                 {
                 archivo.DiscardBufferedData();
-                archivo.BaseStream.Seek(contador, SeekOrigin.Begin);
+                archivo.BaseStream.Seek(contador-1, SeekOrigin.Begin);
                 NextToken();
                 setContador(contador);
                 setLinea(linea);
@@ -534,6 +535,7 @@ namespace Semantica
             }
             evasm = false;
             }while(validarDo);
+            evasm = true;
         }
         //For -> for(Asignacion Condicion; Incremento) BloqueInstruccones | Intruccion 
         private void For(bool evaluacion, bool evasm)
@@ -549,13 +551,12 @@ namespace Semantica
             Asignacion(evaluacion, evasm);
             long contador = getContador(); 
             int linea = getLinea();  
-            //int tam = getContenido().Length - 1; 
+            int tam = getContenido().Length ; 
             //b) metemos un ciclo while
             do
             {
                 if(evasm)
                 asm.WriteLine(etiquetaInicioFor +":");
-
                 validarFor = Condicion(etiquetaFinalFor,evasm);
                 match(";");
                 if(!evaluacion)
@@ -638,19 +639,21 @@ namespace Semantica
                 if(validarFor)
                 {
                 archivo.DiscardBufferedData();
-                archivo.BaseStream.Seek(contador, SeekOrigin.Begin);
+                archivo.BaseStream.Seek(contador - tam, SeekOrigin.Begin);
                 NextToken();
                 setContador(contador);
                 setLinea(linea);
                 //d) sacar otro token
                 }
-                if(evasm)
+                
+                //Console.WriteLine("Contenido: " + tam);
+                if(evasm){
                 asm.WriteLine("JMP " + etiquetaInicioFor);
+                asm.WriteLine(etiquetaFinalFor +":");
+                }
                 evasm = false;
             }while(validarFor);
             evasm = true;
-            if(evasm)
-            asm.WriteLine(etiquetaFinalFor +":");
         }
 
         //Incremento -> Identificador ++ | --
@@ -1188,11 +1191,7 @@ namespace Semantica
                 }
             }
         }
-        ~Lenguaje()
-        {
-            Console.WriteLine("Destuctor");
-            cerrar();
-        }
+        
     }
     
 }

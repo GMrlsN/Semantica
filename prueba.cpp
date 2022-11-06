@@ -4,7 +4,7 @@
 float area, radio, pi, resultado;
 int a, d, altura, cinco;
 float x;
-char y; int i ;int j, k;
+char y; int i ;int j, k, ln;
 // Este programa calcula el volumen de un cilindro.
 void main(){
 
@@ -12,10 +12,6 @@ void main(){
     printf("Introduce la altura de la piramide: ");
     scanf("altura", &altura);
     //Requerimiento 6.- Ejecutar el for y for anidado
-    for(i = 0; i < 6; i++){
-        printf(i);
-        printf(" hola \n");
-    }
     if(altura >2) {
         for(i = altura; i > 0; i-=1){
             j = 0; 
