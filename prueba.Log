@@ -1,22 +1,5 @@
 Archivo: prueba.cpp
-11/3/2022 3:47:40 PM
+11/4/2022 3:55:48 PM
 
-m = 256 = 0
-m 
-i = i 10 
-
-Variables: 
-area, Float, 0
-radio, Float, 0
-pi, Float, 0
-resultado, Float, 0
-a, Int, 0
-d, Int, 0
-altura, Int, 0
-x, Float, 0
-y, Int, 0
-i, Int, 1
-j, Int, 0
-k, Int, 0
-l, Int, 0
-m, Char, 0
+i = 0 = 0
+i 6 i Error de sintaxis, se espera un ( en linea: 15

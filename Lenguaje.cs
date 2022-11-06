@@ -549,12 +549,13 @@ namespace Semantica
             Asignacion(evaluacion, evasm);
             long contador = getContador(); 
             int linea = getLinea();  
-            int tam = getContenido().Length - 1; 
+            //int tam = getContenido().Length - 1; 
             //b) metemos un ciclo while
             do
             {
                 if(evasm)
                 asm.WriteLine(etiquetaInicioFor +":");
+
                 validarFor = Condicion(etiquetaFinalFor,evasm);
                 match(";");
                 if(!evaluacion)
@@ -637,7 +638,7 @@ namespace Semantica
                 if(validarFor)
                 {
                 archivo.DiscardBufferedData();
-                archivo.BaseStream.Seek(contador-tam, SeekOrigin.Begin);
+                archivo.BaseStream.Seek(contador, SeekOrigin.Begin);
                 NextToken();
                 setContador(contador);
                 setLinea(linea);
@@ -925,7 +926,7 @@ namespace Semantica
                             case 'a': cad[i] = '\a'; i++; break;
                             case 'b': cad[i] = '\b'; i++; break;
                             case 'f': cad[i] = '\f'; i++; break;
-                            case 'n': cad[i] = '\n'; i++; asm.WriteLine("PRINTN \"\"");break;
+                            case 'n': cad[i] = '\n'; i++; break;
                             case 'r': cad[i] = '\r'; i++; break;
                             case 't': cad[i] = '\t'; i++; break;
                             case 'v': cad[i] = '\v'; i++; break;
@@ -942,7 +943,7 @@ namespace Semantica
                 Console.Write(cadena);
                 }
                 if(evasm)
-                asm.WriteLine("PRINT " + getContenido());
+                asm.WriteLine("PRINTN " + getContenido());
                 match(Tipos.Cadena);
             }
             else{
