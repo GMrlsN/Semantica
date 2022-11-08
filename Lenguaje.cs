@@ -122,6 +122,32 @@ namespace Semantica
             variablesASM();
             Main();
             displayVariables();
+            asm.WriteLine("JMP fin");
+            asm.WriteLine("PRINTf PROC");
+            asm.WriteLine("mov cx,0");
+            asm.WriteLine("mov dx,0");
+            asm.WriteLine("label1:");
+            asm.WriteLine("cmp ax,0");
+            asm.WriteLine("je print1");
+            asm.WriteLine("mov bx,10");
+            asm.WriteLine("div bx");
+            asm.WriteLine("push dx");
+            asm.WriteLine("inc cx");
+            asm.WriteLine("xor dx,dx");
+            asm.WriteLine("jmp label1");
+            asm.WriteLine("print1:");
+            asm.WriteLine("cmp cx,0");
+            asm.WriteLine("je exit");
+            asm.WriteLine("pop dx");
+            asm.WriteLine("add dx,48");
+            asm.WriteLine("mov ah,02h");
+            asm.WriteLine("int 21h");
+            asm.WriteLine("dec cx");
+            asm.WriteLine("jmp print1");
+            asm.WriteLine("exit:");
+            asm.WriteLine("ret");
+            asm.WriteLine("PRINTf ENDP");
+            asm.WriteLine("fin:");
             asm.WriteLine("DEFINE_SCAN_NUM");
             asm.WriteLine("END");
             asm.WriteLine("RET");
@@ -717,7 +743,7 @@ namespace Semantica
             
         }
         //Incremento normal
-        private bool Incremento(bool evaluacion, bool evasm, string variable)
+        private void Incremento(bool evaluacion, bool evasm, string variable)
         {
                 
                 //match(Tipos.IncrementoTermino);
@@ -744,7 +770,6 @@ namespace Semantica
                                 throw new Error("Error de semantica: no podemos asignar un: <" + dominante + "> a un: <" + getTipo(variable) + "> en la linea " + linea,log);
                             }
                     }
-                    return true;
                 }
                 else
                 {
@@ -753,7 +778,6 @@ namespace Semantica
                     {
                         modificaValor(variable, getValor(variable) - 1);
                     }
-                    return false;
                 }
         }
         //Switch -> switch (Expresion) {Lista de casos} | (default: )
@@ -916,20 +940,28 @@ namespace Semantica
             match("(");
             if(getClasificacion() == Tipos.Cadena)
             {
-                if(evaluacion)
-                {
+                string cadenaASM = getContenido();
+                
+                //Console.WriteLine("\nantes trim " + cadenaASM);
                 string cadena = getContenido().Substring(1,getContenido().Length - 2);
                 char [] cad = new char[cadena.Length];
                 for (int i = 0; i < cadena.Length; i++ )
                 {
+
                     if (cadena[i] == '\\')
                     {
                         switch (cadena[i+1])
                         {
-                            case 'a': cad[i] = '\a'; i++; break;
+                            case 'a': cad[i] = '\a'; cadenaASM = cadenaASM.Trim('\a'); i++; break;
                             case 'b': cad[i] = '\b'; i++; break;
                             case 'f': cad[i] = '\f'; i++; break;
-                            case 'n': cad[i] = '\n'; i++; break;
+                            case 'n': 
+                            cad[i] = '\n'; 
+                            cadenaASM = cadenaASM.Replace("\\n","");
+                            if(evasm)
+                            asm.WriteLine("PRINTN \"\"");
+                            i++; 
+                            break;
                             case 'r': cad[i] = '\r'; i++; break;
                             case 't': cad[i] = '\t'; i++; break;
                             case 'v': cad[i] = '\v'; i++; break;
@@ -942,21 +974,28 @@ namespace Semantica
                         cad[i] = cadena[i];
                     }
                 }
+                if(evaluacion)
+                {
                 cadena = new string(cad);
                 Console.Write(cadena);
                 }
+                cadenaASM = cadenaASM.Replace("\'","");
                 if(evasm)
-                asm.WriteLine("PRINTN " + getContenido());
+                asm.WriteLine("PRINT " + cadenaASM);
+                //Console.WriteLine("\ndespues de trim " + cadenaASM);
                 match(Tipos.Cadena);
             }
             else{
                 //stack.Pop();
+                string variable = getContenido();
                 Expresion(evasm);
                 if(evaluacion)
                 {
                     Console.Write(stack.Pop());
-                    if(evasm)
+                    if(evasm){
                     asm.WriteLine("POP AX");
+                    asm.WriteLine("CALL PRINTf");
+                    }
                     //Requerimiento printF codigo ensamblador para imprimir una variable
                 }
             }

@@ -13,7 +13,7 @@ void main(){
     scanf("altura", &altura);
     //Requerimiento 6.- Ejecutar el for y for anidado
     if(altura >2) {
-        for(i = altura; i > 0; i-=1){
+        for(i = altura; i > 0; i--){
             j = 0; 
             while(j < altura-i){
                 if(j%2 == 0){
@@ -22,7 +22,7 @@ void main(){
                 else{
                     printf("-");//Requerimiento 4.- evalua nuevamente los else
                 }
-                j+=1; 
+                j++; 
             }
             printf("\n");
         }
@@ -42,7 +42,7 @@ void main(){
         }
     }
     a = 258;
-    printf("Valor de variable int 'a' antes del casteo: ");
+    printf("Valor de variable int a antes del casteo: ");
     printf(a);
     y = (char)(a);  //Requerimiento 2 y 3, actualiza el dominante y convierte el valor con una funcion
     printf("\nValor de variable char 'y' despues del casteo de a: ");

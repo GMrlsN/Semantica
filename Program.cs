@@ -11,7 +11,7 @@ namespace Semantica
             
             try
             {
-                Lenguaje a = new Lenguaje();
+                using Lenguaje a = new Lenguaje();
                 a.Programa();
                 //a.Dispose();
                 //GC.Collect();
